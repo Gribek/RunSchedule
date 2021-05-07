@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
+from .models import User
+
 
 class UserAdmin(BaseUserAdmin):
     """ModelAdmin for custom user model."""
@@ -18,3 +20,4 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ('is_admin',)
     search_fields = ('email',)
     ordering = ('email',)
+    filter_horizontal = ()
