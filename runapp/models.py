@@ -3,8 +3,10 @@ from django.db import models
 
 
 class UserManager(BaseUserManager):
+    """A class to manage User class objects."""
 
     def create_user(self, email, password=None):
+        """Create a user and save it to a database."""
         if not email:
             raise ValueError('Can not create user without email address')
 
@@ -14,6 +16,7 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password=None):
+        """Create a superuser and save it to a database."""
         user = self.create_user(email=email, password=password)
         user.is_admin = True
         user.save(using=self._db)
