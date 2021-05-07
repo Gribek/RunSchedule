@@ -21,6 +21,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
+    """A class to represent a user."""
     email = models.EmailField(unique=True, verbose_name='Email address',
                               max_length=255)
     is_active = models.BooleanField(default=True)
@@ -32,10 +33,13 @@ class User(AbstractBaseUser):
 
     @property
     def is_staff(self):
+        """Return True if a user is allowed to access django-admin."""
         return self.is_admin
 
     def has_perm(self, perm, obj=None):
+        """Return True if a user has specified permission."""
         return self.is_admin
 
     def has_module_perms(self, app_label):
+        """Return True if a user is allowed to access app models."""
         return self.is_admin
