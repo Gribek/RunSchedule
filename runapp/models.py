@@ -46,3 +46,33 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         """Return True if a user is allowed to access app models."""
         return self.is_admin
+
+
+class TrainingPlan(models.Model):
+    """Represent a single training plan."""
+    name = models.CharField(verbose_name='name of the plan', max_length=64)
+    start_date = models.DateField(verbose_name='plan start date')
+    end_date = models.DateField(verbose_name='plan end date')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    current_plan = models.BooleanField(verbose_name='owner\'s current plan',
+                                       default=False)
+    description = models.TextField(verbose_name='plan description (optional)',
+                                   null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Training(models.Model):
+    """Represent a single training."""
+    training_plan = models.ForeignKey(TrainingPlan, on_delete=models.CASCADE,
+                                      unique_for_date='date')
+    date = models.DateField(verbose_name='training date')
+    main_training = models.CharField(max_length=32)
+    additional_training = models.CharField(max_length=32, null=True,
+                                           blank=True)
+    completed = models.BooleanField(verbose_name='training completed',
+                                    default=False)
+
+    def __str__(self):
+        return f'{self.main_training}\n + {self.additional_training}'
