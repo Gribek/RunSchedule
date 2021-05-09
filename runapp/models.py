@@ -25,7 +25,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     """A class to represent a user."""
-    email = models.EmailField(unique=True, verbose_name='Email address',
+    email = models.EmailField(unique=True, verbose_name='email address',
                               max_length=255)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
