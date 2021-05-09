@@ -76,3 +76,20 @@ class Training(models.Model):
 
     def __str__(self):
         return f'{self.main_training}\n + {self.additional_training}'
+
+
+class TrainingDiary(models.Model):
+    """Represent a single entry in the user's training diary."""
+
+    date = models.DateField(verbose_name="training date")
+    training_information = models.CharField(verbose_name='training',
+                                            max_length=128)
+    training_distance = models.DecimalField(verbose_name='total distance',
+                                            max_digits=4, decimal_places=2)
+    training_time = models.SmallIntegerField(verbose_name='total time')
+    average_speed = models.DecimalField(verbose_name='average speed [km/h]',
+                                        max_digits=4, decimal_places=2)
+    notes = models.TextField(verbose_name='Additional notes (optional)',
+                             null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             unique_for_date='date')
