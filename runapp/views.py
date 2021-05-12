@@ -3,7 +3,7 @@ from django.views import View
 from django.views.generic import TemplateView
 
 
-class LandingPage(View):
+class LandingPageView(View):
     """Display application landing page."""
 
     def get(self, request):
