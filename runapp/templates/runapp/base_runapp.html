@@ -1,0 +1,32 @@
+{% extends 'runapp/base.html' %}
+
+{% block content %}
+    {% block navbar %}
+        <nav>
+            <div>
+                <ul>
+                    <li>
+                        <a href="{% url 'runapp:homepage' %}">Homepage</a>
+                    </li>
+                    <li>
+                        <a href="#">Calendar</a>
+                    </li>
+                    <li>
+                        <a href="#">My plans</a>
+                    </li>
+                    <li>
+                        <a href="#">Training diary</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                {% if user.is_authenticated %}
+                    {{ user.email }} <a href="#">Sign out</a>
+                {% endif %}
+            </div>
+        </nav>
+    {% endblock navbar %}
+
+    {% block runapp_content %}
+    {% endblock runapp_content %}
+{% endblock content %}
