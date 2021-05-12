@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic import TemplateView
 
 
 class LandingPage(View):
@@ -9,6 +10,5 @@ class LandingPage(View):
         return render(request, 'runapp/landing_page.html')
 
 
-class HomePageView(View):
-    def get(self, request):
-        return render(request, 'runapp/homepage.html')
+class HomepageView(TemplateView):
+    template_name = 'runapp/homepage.html'
