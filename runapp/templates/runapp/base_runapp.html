@@ -21,7 +21,7 @@
             </div>
             <div>
                 {% if user.is_authenticated %}
-                    {{ user.email }} <a href="#">Sign out</a>
+                    {{ user.email }} <a href="{% url 'runapp:logout' %}">Sign out</a>
                 {% endif %}
             </div>
         </nav>
