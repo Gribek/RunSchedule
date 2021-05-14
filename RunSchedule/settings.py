@@ -88,6 +88,16 @@ DATABASES = {
 AUTH_USER_MODEL = 'runapp.User'
 
 
+# Authentication
+# https://docs.djangoproject.com/en/3.2/ref/settings/#auth
+
+LOGIN_URL = 'runapp:login'
+
+LOGIN_REDIRECT_URL = 'runapp:homepage'
+
+LOGOUT_REDIRECT_URL = 'runapp:landing_page'
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

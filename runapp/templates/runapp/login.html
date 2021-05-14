@@ -1,0 +1,13 @@
+{% extends "runapp/base.html" %}
+
+{% block content %}
+    {% if form.errors %}
+        <p>Invalid username or password. Please try again.</p>
+    {% endif %}
+    <form method="post" action="{% url 'runapp:login' %}">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Sign in">
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+{% endblock %}
