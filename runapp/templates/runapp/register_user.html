@@ -1,0 +1,12 @@
+{% extends 'runapp/base.html' %}
+
+{% block content %}
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Sing up">
+            <a href="{% url 'runapp:landing_page' %}">Cancel</a>
+        </form>
+    </div>
+{% endblock %}
