@@ -1,0 +1,12 @@
+{% extends 'runapp/base.html' %}
+
+{% block content %}
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Create">
+            <a href="{% url 'runapp:homepage' %}">Cancel</a>
+        </form>
+    </div>
+{% endblock %}
