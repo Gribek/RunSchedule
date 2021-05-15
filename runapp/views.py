@@ -25,14 +25,17 @@ class HomepageView(TemplateView):
 
 
 class RegisterUserView(View):
+    """View for registering a new user."""
     form_class = UserForm
     template_name = 'runapp/register_user.html'
 
     def get(self, request):
+        """Display the registration form."""
         form = self.form_class()
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
+        """Create a new user."""
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
