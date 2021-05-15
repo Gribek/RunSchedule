@@ -1,7 +1,8 @@
 from django.urls import path
 from django.contrib.auth.views import LogoutView, LoginView
 
-from runapp.views import LandingPageView, HomepageView, RegisterUserView
+from runapp.views import LandingPageView, HomepageView, RegisterUserView, \
+    TrainingPlanCreateView
 
 app_name = 'runapp'
 urlpatterns = [
@@ -11,4 +12,6 @@ urlpatterns = [
          name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
     path('register', RegisterUserView.as_view(), name='register_user'),
+    path('training_plan/new', TrainingPlanCreateView.as_view(),
+         name='training_plan_create'),
 ]
