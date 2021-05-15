@@ -6,7 +6,7 @@ from runapp.forms import UserForm
 
 
 class LandingPageView(View):
-    """Display application landing page."""
+    """View for displaying application landing page."""
 
     def get(self, request):
         """Display landing page or redirect to homepage.
@@ -20,7 +20,7 @@ class LandingPageView(View):
 
 
 class HomepageView(TemplateView):
-    """Display application homepage."""
+    """View for displaying application homepage."""
     template_name = 'runapp/homepage.html'
 
 
