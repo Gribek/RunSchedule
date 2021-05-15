@@ -1,10 +1,8 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import TemplateView
 
 from runapp.forms import UserForm
-from .models import User
 
 
 class LandingPageView(View):
