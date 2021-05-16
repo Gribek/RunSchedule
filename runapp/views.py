@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import TemplateView
 
 from runapp.forms import UserForm, TrainingPlanForm
+from runapp.models import TrainingPlan
 
 
 class LandingPageView(View):
@@ -64,3 +65,14 @@ class TrainingPlanCreateView(View):
                 pass  # TODO: implement set plan as current
             return redirect('runapp:homepage')  # TODO: redirect to plan list
         return render(request, self.template_name, {'form': form})
+
+
+class TrainingPlanDetailsView(View):
+    """View for displaying details about the training plan."""
+
+    def get(self, request, pk):
+        """Display information about the selected training plan."""
+        training_plan = get_object_or_404(TrainingPlan, pk=pk)
+        training_plan.confirm_owner(request.user)
+        return render(request, 'runapp/training_plan_details.html',
+                      {'training_plan': training_plan})
