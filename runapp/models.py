@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.core.exceptions import PermissionDenied
 from django.db import models
 
 
@@ -61,6 +62,15 @@ class TrainingPlan(models.Model):
 
     def __str__(self):
         return self.name
+
+    def confirm_owner(self, user):
+        """Verify that the training plan belongs to the user.
+
+        If the user is not the owner, raise the Permission Denied
+        error.
+        """
+        if self.owner != user:
+            raise PermissionDenied
 
 
 class Training(models.Model):
