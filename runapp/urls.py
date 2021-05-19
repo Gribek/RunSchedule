@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth.views import LogoutView, LoginView
 
 from runapp.views import LandingPageView, HomepageView, RegisterUserView, \
-    TrainingPlanCreateView, TrainingPlanDetailsView
+    TrainingPlanCreateView, TrainingPlanDetailsView, TrainingPlanListView
 
 app_name = 'runapp'
 urlpatterns = [
@@ -16,4 +16,6 @@ urlpatterns = [
          name='training_plan_create'),
     path('training_plan/<int:pk>', TrainingPlanDetailsView.as_view(),
          name='training_plan_details'),
+    path('training_plans', TrainingPlanListView.as_view(),
+         name='training_plan_list'),
 ]
