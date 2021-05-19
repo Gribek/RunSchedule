@@ -63,7 +63,7 @@ class TrainingPlanCreateView(View):
             training_plan = form.save()
             if training_plan.current_plan:
                 pass  # TODO: implement set plan as current
-            return redirect('runapp:homepage')  # TODO: redirect to plan list
+            return redirect(training_plan)
         return render(request, self.template_name, {'form': form})
 
 
