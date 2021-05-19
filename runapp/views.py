@@ -86,7 +86,7 @@ class TrainingPlanEditView(View):
         form = self.form_class(request.POST, instance=training_plan)
         if form.is_valid():
             form.save()
-            return redirect('runapp:training_plan_details', pk)
+            return redirect(training_plan)
         return render(request, self.template_name,
                       {'form': form, 'plan_id': pk})
 
