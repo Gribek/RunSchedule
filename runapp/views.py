@@ -76,3 +76,13 @@ class TrainingPlanDetailsView(View):
         training_plan.confirm_owner(request.user)
         return render(request, 'runapp/training_plan_details.html',
                       {'training_plan': training_plan})
+
+
+class TrainingPlanListView(View):
+    """View for displaying the list of user training plans."""
+
+    def get(self, request):
+        """Display all user training plans."""
+        training_plans = TrainingPlan.objects.filter(owner=request.user)
+        return render(request, 'runapp/training_plan_list.html',
+                      {'training_plans': training_plans})
