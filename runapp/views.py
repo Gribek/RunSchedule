@@ -67,6 +67,30 @@ class TrainingPlanCreateView(View):
         return render(request, self.template_name, {'form': form})
 
 
+class TrainingPlanEditView(View):
+    """View for editing an existing training plan."""
+    form_class = TrainingPlanForm
+    template_name = 'runapp/training_plan_edit.html'
+
+    def get(self, request, pk):
+        """Display the form for editing the training plan."""
+        training_plan = get_object_or_404(TrainingPlan, pk=pk)
+        training_plan.confirm_owner(request.user)
+        form = self.form_class(instance=training_plan)
+        return render(request, self.template_name,
+                      {'form': form, 'plan_id': pk})
+
+    def post(self, request, pk):
+        """Edit the selected training plan."""
+        training_plan = get_object_or_404(TrainingPlan, pk=pk)
+        form = self.form_class(request.POST, instance=training_plan)
+        if form.is_valid():
+            form.save()
+            return redirect('runapp:training_plan_details', pk)
+        return render(request, self.template_name,
+                      {'form': form, 'plan_id': pk})
+
+
 class TrainingPlanDetailsView(View):
     """View for displaying details about the training plan."""
 
