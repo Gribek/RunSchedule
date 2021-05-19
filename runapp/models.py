@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.exceptions import PermissionDenied
 from django.db import models
+from django.urls import reverse
 
 
 class UserManager(BaseUserManager):
@@ -62,6 +63,9 @@ class TrainingPlan(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('runapp:training_plan_details', kwargs={'pk': self.pk})
 
     def confirm_owner(self, user):
         """Verify that the training plan belongs to the user.
