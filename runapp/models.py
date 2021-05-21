@@ -65,6 +65,7 @@ class TrainingPlan(models.Model):
         return self.name
 
     def get_absolute_url(self):
+        """Return the url for an object."""
         return reverse('runapp:training_plan_details', kwargs={'pk': self.pk})
 
     def confirm_owner(self, user):
