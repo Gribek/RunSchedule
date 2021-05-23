@@ -84,6 +84,17 @@ class TrainingPlan(models.Model):
         self.current_plan = True
         self.save()
 
+    def save(self, **kwargs):
+        """Save instance of the class.
+
+        Make sure only one training plan object per user have the
+        current_plan attribute set to True.
+        """
+        if self.current_plan:
+            TrainingPlan.objects.filter(
+                owner=self.owner, current_plan=True).update(current_plan=False)
+        super().save(**kwargs)
+
 
 class Training(models.Model):
     """Represent a single training."""
