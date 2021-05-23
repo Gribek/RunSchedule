@@ -1,0 +1,18 @@
+{% extends 'runapp/base.html' %}
+
+{% block content %}
+    <div>
+        <h4>Plan's name: {{ training_plan.name }}</h4>
+        {% if training_plan.description %}
+            <p>
+                Description: {{ training_plan.description }}
+            </p>
+        {% endif %}
+        <p>
+            Plan start date: {{ training_plan.start_date|date:'d M Y' }}
+        </p>
+        <p>
+            Plan end date: {{ training_plan.end_date|date:'d M Y' }}
+        </p>
+    </div>
+{% endblock %}

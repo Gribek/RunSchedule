@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.core.exceptions import PermissionDenied
 from django.db import models
+from django.urls import reverse
 
 
 class UserManager(BaseUserManager):
@@ -61,6 +63,37 @@ class TrainingPlan(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        """Return the url for an object."""
+        return reverse('runapp:training_plan_details', kwargs={'pk': self.pk})
+
+    def confirm_owner(self, user):
+        """Verify that the training plan belongs to the user.
+
+        If the user is not the owner, raise the Permission Denied
+        error.
+        """
+        if self.owner != user:
+            raise PermissionDenied
+
+    @classmethod
+    def set_current(cls, plan_id):
+        """Set training plan as user's current plan."""
+        training_plan = cls.objects.get(pk=plan_id)
+        training_plan.current_plan = True
+        training_plan.save()
+
+    def save(self, **kwargs):
+        """Save instance of the class.
+
+        Make sure only one training plan object per user have the
+        current_plan attribute set to True.
+        """
+        if self.current_plan:
+            TrainingPlan.objects.filter(
+                owner=self.owner, current_plan=True).update(current_plan=False)
+        super().save(**kwargs)
 
 
 class Training(models.Model):

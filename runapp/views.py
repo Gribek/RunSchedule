@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import TemplateView
 
-from runapp.forms import UserForm
+from runapp.forms import UserForm, TrainingPlanForm, SelectCurrentPlanForm
+from runapp.models import TrainingPlan
 
 
 class LandingPageView(View):
@@ -40,5 +41,94 @@ class RegisterUserView(View):
         if form.is_valid():
             form.save()
             return redirect('runapp:login')
+
+        return render(request, self.template_name, {'form': form})
+
+
+class TrainingPlanCreateView(View):
+    """View for creating a new training plan."""
+    form_class = TrainingPlanForm
+    template_name = 'runapp/training_plan_create.html'
+
+    def get(self, request):
+        """Display the form for creating a new training plan."""
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        """Create a new training plan."""
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.instance.owner = request.user
+            training_plan = form.save()
+            return redirect(training_plan)
+
+        return render(request, self.template_name, {'form': form})
+
+
+class TrainingPlanEditView(View):
+    """View for editing an existing training plan."""
+    form_class = TrainingPlanForm
+    template_name = 'runapp/training_plan_edit.html'
+
+    def get(self, request, pk):
+        """Display the form for editing the training plan."""
+        training_plan = get_object_or_404(TrainingPlan, pk=pk)
+        training_plan.confirm_owner(request.user)
+        form = self.form_class(instance=training_plan)
+        return render(request, self.template_name,
+                      {'form': form, 'plan_id': pk})
+
+    def post(self, request, pk):
+        """Edit the selected training plan."""
+        training_plan = get_object_or_404(TrainingPlan, pk=pk)
+        form = self.form_class(request.POST, instance=training_plan)
+        if form.is_valid():
+            form.save()
+            return redirect(training_plan)
+
+        return render(request, self.template_name,
+                      {'form': form, 'plan_id': pk})
+
+
+class TrainingPlanDetailsView(View):
+    """View for displaying details about the training plan."""
+
+    def get(self, request, pk):
+        """Display information about the selected training plan."""
+        training_plan = get_object_or_404(TrainingPlan, pk=pk)
+        training_plan.confirm_owner(request.user)
+        return render(request, 'runapp/training_plan_details.html',
+                      {'training_plan': training_plan})
+
+
+class TrainingPlanListView(View):
+    """View for displaying the list of user training plans."""
+
+    def get(self, request):
+        """Display all user training plans."""
+        training_plans = TrainingPlan.objects.filter(owner=request.user)
+        return render(request, 'runapp/training_plan_list.html',
+                      {'training_plans': training_plans})
+
+
+class SelectCurrentTrainingPlanView(View):
+    """View for selecting the current training plan."""
+
+    form_class = SelectCurrentPlanForm
+    template_name = 'runapp/select_current_training_plan.html'
+
+    def get(self, request):
+        """Display the form for choosing the current training plan."""
+        form = self.form_class(request.user)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        """Set the selected training plan as current."""
+        form = self.form_class(request.user, data=request.POST)
+        if form.is_valid():
+            plan_id = form.cleaned_data.get('current_plan')
+            TrainingPlan.set_current(plan_id)
+            return redirect('runapp:training_plan_list')
 
         return render(request, self.template_name, {'form': form})
