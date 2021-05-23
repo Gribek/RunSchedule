@@ -62,6 +62,7 @@ class TrainingPlanCreateView(View):
             form.instance.owner = request.user
             training_plan = form.save()
             return redirect(training_plan)
+
         return render(request, self.template_name, {'form': form})
 
 
@@ -85,6 +86,7 @@ class TrainingPlanEditView(View):
         if form.is_valid():
             form.save()
             return redirect(training_plan)
+
         return render(request, self.template_name,
                       {'form': form, 'plan_id': pk})
 
