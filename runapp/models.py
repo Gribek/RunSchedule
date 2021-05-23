@@ -77,12 +77,12 @@ class TrainingPlan(models.Model):
         if self.owner != user:
             raise PermissionDenied
 
-    def set_current(self):
+    @classmethod
+    def set_current(cls, plan_id):
         """Set training plan as user's current plan."""
-        TrainingPlan.objects.filter(
-            owner=self.owner, current_plan=True).update(current_plan=False)
-        self.current_plan = True
-        self.save()
+        training_plan = cls.objects.get(pk=plan_id)
+        training_plan.current_plan = True
+        training_plan.save()
 
     def save(self, **kwargs):
         """Save instance of the class.
