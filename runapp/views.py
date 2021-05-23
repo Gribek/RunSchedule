@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import TemplateView
 
-from runapp.forms import UserForm, TrainingPlanForm
+from runapp.forms import UserForm, TrainingPlanForm, SelectCurrentPlanForm
 from runapp.models import TrainingPlan
 
 
@@ -108,3 +108,25 @@ class TrainingPlanListView(View):
         training_plans = TrainingPlan.objects.filter(owner=request.user)
         return render(request, 'runapp/training_plan_list.html',
                       {'training_plans': training_plans})
+
+
+class SelectCurrentTrainingPlanView(View):
+    """View for selecting the current training plan."""
+
+    form_class = SelectCurrentPlanForm
+    template_name = 'runapp/select_current_training_plan.html'
+
+    def get(self, request):
+        """Display the form for choosing the current training plan."""
+        form = self.form_class(request.user)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        """Set the selected training plan as current."""
+        form = self.form_class(request.user, data=request.POST)
+        if form.is_valid():
+            plan_id = form.cleaned_data.get('current_plan')
+            TrainingPlan.set_current(plan_id)
+            return redirect('runapp:training_plan_list')
+
+        return render(request, self.template_name, {'form': form})
