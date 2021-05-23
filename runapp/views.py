@@ -61,8 +61,6 @@ class TrainingPlanCreateView(View):
         if form.is_valid():
             form.instance.owner = request.user
             training_plan = form.save()
-            if training_plan.current_plan:
-                training_plan.set_current()
             return redirect(training_plan)
         return render(request, self.template_name, {'form': form})
 
