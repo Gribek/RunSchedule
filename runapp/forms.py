@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 
@@ -22,3 +23,14 @@ class TrainingPlanForm(ModelForm):
         labels = {
             'current_plan': 'Set as current plan'
         }
+
+
+class SelectCurrentPlanForm(forms.Form):
+    """Form for selecting the current training plan."""
+
+    def __init__(self, user, **kwargs):
+        super(SelectCurrentPlanForm, self).__init__(**kwargs)
+        user_plans = [(plan.id, plan.name) for plan in
+                      TrainingPlan.objects.filter(owner=user)]
+        self.fields['current_plan'] = forms.ChoiceField(
+            choices=user_plans, label='Choose your current plan')
