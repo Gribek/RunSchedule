@@ -6,7 +6,7 @@
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="Save training">
-            <a href="{% url 'runapp:training_plan_details' plan_pk %}">Cancel</a>
+            <a href="{{ training_plan.get_absolute_url }}">Cancel</a>
         </form>
     </div>
 {% endblock %}
