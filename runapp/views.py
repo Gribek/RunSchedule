@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import TemplateView
 
-from runapp.forms import UserForm, TrainingPlanForm, SelectCurrentPlanForm
+from runapp.forms import UserForm, TrainingPlanForm, SelectCurrentPlanForm, \
+    TrainingForm
 from runapp.models import TrainingPlan
 
 
@@ -132,3 +133,30 @@ class SelectCurrentTrainingPlanView(View):
             return redirect('runapp:training_plan_list')
 
         return render(request, self.template_name, {'form': form})
+
+
+class TrainingCreateView(View):
+    """View for creating a new training."""
+
+    form_class = TrainingForm
+    template_name = 'runapp/training_create.html'
+
+    def get(self, request, plan_pk):
+        """Display the form for creating a new training."""
+        training_plan = get_object_or_404(TrainingPlan, pk=plan_pk)
+        training_plan.confirm_owner(request.user)
+        form = self.form_class()
+        context = {'form': form, 'plan_pk': plan_pk}
+        return render(request, self.template_name, context)
+
+    def post(self, request, plan_pk):
+        """Create a new training."""
+        training_plan = get_object_or_404(TrainingPlan, pk=plan_pk)
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.instance.training_plan = training_plan
+            form.save()
+            return redirect(training_plan)
+
+        context = {'form': form, 'plan_pk': plan_pk}
+        return render(request, self.template_name, context)
