@@ -115,7 +115,6 @@ class TrainingPlanListView(View):
 
 class SelectCurrentTrainingPlanView(View):
     """View for selecting the current training plan."""
-
     form_class = SelectCurrentPlanForm
     template_name = 'runapp/select_current_training_plan.html'
 
@@ -137,7 +136,6 @@ class SelectCurrentTrainingPlanView(View):
 
 class TrainingCreateView(View):
     """View for creating a new training."""
-
     form_class = TrainingForm
     template_name = 'runapp/training_create.html'
 
