@@ -15,4 +15,12 @@
             Plan end date: {{ training_plan.end_date|date:'d M Y' }}
         </p>
     </div>
+    <div>
+        <p>Trainings:</p>
+        {% for training in training_plan.training_set.all %}
+            {{ training }}
+        {% empty %}
+            <p>No trainings planed</p>
+        {% endfor %}
+    </div>
 {% endblock %}
