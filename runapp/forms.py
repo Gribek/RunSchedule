@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 
-from runapp.models import User, TrainingPlan
+from runapp.models import User, TrainingPlan, Training
 from runapp.widget import DatePicker
 
 
@@ -22,6 +22,15 @@ class TrainingPlanForm(ModelForm):
         }
         labels = {
             'current_plan': 'Set as current plan'
+        }
+
+
+class TrainingForm(ModelForm):
+    class Meta:
+        model = Training
+        exclude = ['completed', 'training_plan']
+        widgets = {
+            'date': DatePicker(),
         }
 
 
