@@ -146,7 +146,7 @@ class TrainingCreateView(View):
         training_plan = get_object_or_404(TrainingPlan, pk=plan_pk)
         training_plan.confirm_owner(request.user)
         form = self.form_class()
-        context = {'form': form, 'plan_pk': plan_pk}
+        context = {'form': form, 'training_plan': training_plan}
         return render(request, self.template_name, context)
 
     def post(self, request, plan_pk):
@@ -158,5 +158,5 @@ class TrainingCreateView(View):
             form.save()
             return redirect(training_plan)
 
-        context = {'form': form, 'plan_pk': plan_pk}
+        context = {'form': form, 'training_plan': training_plan}
         return render(request, self.template_name, context)
