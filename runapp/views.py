@@ -185,3 +185,15 @@ class TrainingEditView(View):
 
         context = {'form': form, 'training_plan': plan}
         return render(request, self.template_name, context)
+
+
+class TrainingDeleteView(View):
+    """View for deleting a scheduled training."""
+
+    def get(self, request, pk):
+        """Delete the selected training."""
+        training = get_object_or_404(Training, pk=pk)
+        plan = training.training_plan
+        plan.confirm_owner(request.user)
+        training.delete()
+        return redirect(plan)
