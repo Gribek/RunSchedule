@@ -23,7 +23,12 @@
     <div>
         <p>Trainings:</p>
         {% for training in training_plan.training_set.all %}
-            {{ training }}
+            <div>
+                {{ training }}
+                <form style="display: inline">
+                    <button formmethod="get" formaction="{% url 'runapp:training_delete' training.pk %}">Delete</button>
+                </form>
+            </div>
         {% empty %}
             <p>No trainings planed</p>
         {% endfor %}
