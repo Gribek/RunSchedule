@@ -1,0 +1,12 @@
+{% extends 'runapp/base_runapp.html' %}
+
+{% block content %}
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Save training">
+            <a href="{{ training_plan.get_absolute_url }}">Cancel</a>
+        </form>
+    </div>
+{% endblock %}

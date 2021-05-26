@@ -15,4 +15,22 @@
             Plan end date: {{ training_plan.end_date|date:'d M Y' }}
         </p>
     </div>
+    <div>
+        <a href="{% url 'runapp:training_create' training_plan.pk %}">Add new training</a>
+        <a href="{% url 'runapp:training_plan_edit' training_plan.pk %}">Edit plan</a>
+        <a href="{% url 'runapp:training_plan_list' %}">Return to your plans</a>
+    </div>
+    <div>
+        <p>Trainings:</p>
+        {% for training in training_plan.training_set.all %}
+            <div>
+                {{ training }}
+                <form style="display: inline">
+                    <button formmethod="get" formaction="{% url 'runapp:training_delete' training.pk %}">Delete</button>
+                </form>
+            </div>
+        {% empty %}
+            <p>No trainings planed</p>
+        {% endfor %}
+    </div>
 {% endblock %}

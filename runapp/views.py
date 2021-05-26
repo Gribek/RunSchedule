@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import TemplateView
 
-from runapp.forms import UserForm, TrainingPlanForm, SelectCurrentPlanForm
-from runapp.models import TrainingPlan
+from runapp.forms import UserForm, TrainingPlanForm, SelectCurrentPlanForm, \
+    TrainingForm
+from runapp.models import TrainingPlan, Training
 
 
 class LandingPageView(View):
@@ -114,7 +115,6 @@ class TrainingPlanListView(View):
 
 class SelectCurrentTrainingPlanView(View):
     """View for selecting the current training plan."""
-
     form_class = SelectCurrentPlanForm
     template_name = 'runapp/select_current_training_plan.html'
 
@@ -132,3 +132,68 @@ class SelectCurrentTrainingPlanView(View):
             return redirect('runapp:training_plan_list')
 
         return render(request, self.template_name, {'form': form})
+
+
+class TrainingCreateView(View):
+    """View for creating a new training."""
+    form_class = TrainingForm
+    template_name = 'runapp/training_create.html'
+
+    def get(self, request, plan_pk):
+        """Display the form for creating a new training."""
+        training_plan = get_object_or_404(TrainingPlan, pk=plan_pk)
+        training_plan.confirm_owner(request.user)
+        form = self.form_class()
+        context = {'form': form, 'training_plan': training_plan}
+        return render(request, self.template_name, context)
+
+    def post(self, request, plan_pk):
+        """Create a new training."""
+        training_plan = get_object_or_404(TrainingPlan, pk=plan_pk)
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.instance.training_plan = training_plan
+            form.save()
+            return redirect(training_plan)
+
+        context = {'form': form, 'training_plan': training_plan}
+        return render(request, self.template_name, context)
+
+
+class TrainingEditView(View):
+    """View for editing a scheduled training."""
+    form_class = TrainingForm
+    template_name = 'runapp/training_create.html'
+
+    def get(self, request, pk):
+        """Display the form for editing the training."""
+        training = get_object_or_404(Training, pk=pk)
+        plan = training.training_plan
+        plan.confirm_owner(request.user)
+        form = self.form_class(instance=training)
+        context = {'form': form, 'training_plan': plan}
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        """Edit the selected training."""
+        training = get_object_or_404(Training, pk=pk)
+        plan = training.training_plan
+        form = self.form_class(data=request.POST, instance=training)
+        if form.is_valid():
+            form.save()
+            return redirect(plan)
+
+        context = {'form': form, 'training_plan': plan}
+        return render(request, self.template_name, context)
+
+
+class TrainingDeleteView(View):
+    """View for deleting a scheduled training."""
+
+    def get(self, request, pk):
+        """Delete the selected training."""
+        training = get_object_or_404(Training, pk=pk)
+        plan = training.training_plan
+        plan.confirm_owner(request.user)
+        training.delete()
+        return redirect(plan)

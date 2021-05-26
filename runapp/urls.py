@@ -3,7 +3,8 @@ from django.contrib.auth.views import LogoutView, LoginView
 
 from runapp.views import LandingPageView, HomepageView, RegisterUserView, \
     TrainingPlanCreateView, TrainingPlanDetailsView, TrainingPlanListView, \
-    TrainingPlanEditView, SelectCurrentTrainingPlanView
+    TrainingPlanEditView, SelectCurrentTrainingPlanView, TrainingCreateView, \
+    TrainingEditView, TrainingDeleteView
 
 app_name = 'runapp'
 urlpatterns = [
@@ -23,4 +24,10 @@ urlpatterns = [
          name='training_plan_list'),
     path('select_plan', SelectCurrentTrainingPlanView.as_view(),
          name='select_current_training_plan'),
+    path('training/new/<int:plan_pk>', TrainingCreateView.as_view(),
+         name='training_create'),
+    path('training/edit/<int:pk>', TrainingEditView.as_view(),
+         name='training_edit'),
+    path('training/delete/<int:pk>', TrainingDeleteView.as_view(),
+         name='training_delete'),
 ]
