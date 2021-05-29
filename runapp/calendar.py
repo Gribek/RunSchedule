@@ -1,5 +1,5 @@
 from calendar import HTMLCalendar
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.shortcuts import reverse
 from django.utils.http import urlencode
@@ -92,3 +92,16 @@ class TrainingCalendar(HTMLCalendar):
         trainings = self.training_plan.training_set.filter(
             date__year=self.year, date__month=self.month).order_by('date')
         return {t.date.day: t for t in trainings}
+
+    def previous_and_next_month(self):
+        """Calculate previous and next month and year."""
+        first_day_current_month = self.create_date(day=1)
+        last_day_previous_month = first_day_current_month - timedelta(days=1)
+        some_day_next_month = (first_day_current_month + timedelta(days=32))
+
+        previous_month = {'month': last_day_previous_month.month,
+                          'year': last_day_previous_month.year}
+        next_month = {'month': some_day_next_month.month,
+                      'year': some_day_next_month.year}
+
+        return previous_month, next_month
