@@ -27,4 +27,6 @@ urlpatterns = [
          name='training_edit'),
     path('training/delete/<int:pk>', views.TrainingDeleteView.as_view(),
          name='training_delete'),
+    path('calendar/<int:month>/<int:year>',
+         views.CurrentPlanCalendarView.as_view(), name='calendar'),
 ]

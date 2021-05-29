@@ -9,7 +9,7 @@
                         <a href="{% url 'runapp:homepage' %}">Homepage</a>
                     </li>
                     <li>
-                        <a href="#">Calendar</a>
+                        <a href="{% url 'runapp:calendar' today.month today.year %}">Calendar</a>
                     </li>
                     <li>
                         <a href="{% url 'runapp:training_plan_list' %}">My plans</a>

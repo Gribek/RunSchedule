@@ -78,6 +78,16 @@ class TrainingPlan(models.Model):
             raise PermissionDenied
 
     @classmethod
+    def get_current(cls, user):
+        """Return the user's current training plan.
+
+        If there is no current plan return None.
+        """
+        training_plan = cls.objects.filter(owner=user, current_plan=True)
+        if training_plan.exists():
+            return training_plan[0]
+
+    @classmethod
     def set_current(cls, plan_id):
         """Set training plan as user's current plan."""
         training_plan = cls.objects.get(pk=plan_id)

@@ -1,0 +1,29 @@
+{% extends 'runapp/base_runapp.html' %}
+
+{% block runapp_content %}
+    <div>
+        {% if training_plan %}
+            <div>
+                <h4>Your current training plan: {{ training_plan.name }}</h4>
+            </div>
+            <div>
+                <a href="{{ training_plan.get_absolute_url }}">Plan details</a>
+                <a href="{% url 'runapp:select_current_training_plan' %}">Change training plan</a>
+            </div>
+            <div>
+                {{ monthly_calendar }}
+            </div>
+            <div>
+                <a href="{% url 'runapp:calendar' training_plan.start_date.month training_plan.start_date.year %}">First month</a>
+                <a href="{% url 'runapp:calendar' previous_month.month previous_month.year %}">Previous month</a>
+                <a href="{% url 'runapp:calendar' today.month today.year %}">Current month</a>
+                <a href="{% url 'runapp:calendar' next_month.month next_month.year %}">Next month</a>
+                <a href="{% url 'runapp:calendar' training_plan.end_date.month training_plan.end_date.year %}">Last month</a>
+            </div>
+        {% else %}
+            <div>
+                <a href="{% url 'runapp:select_current_training_plan' %}">No training plan selected, choose one</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
