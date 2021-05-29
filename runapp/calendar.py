@@ -67,6 +67,25 @@ class TrainingCalendar(HTMLCalendar):
         """Create a link to edit a scheduled training."""
         return reverse('runapp:training_edit', args=[training_pk])
 
+    def get_css_class(self, day, weekday, is_training_day):
+        """Create a string with css classes for a table cell."""
+        date = self.create_date(day)
+        css_classes = [self.cssclasses[weekday]]
+        if date == self.get_date_today():
+            css_classes.append('today')
+        elif date == self.training_plan.start_date:
+            css_classes.append('plan_start')
+        elif date == self.training_plan.end_date:
+            css_classes.append('plan_end')
+        elif is_training_day:
+            css_classes.append('training_day')
+        return ' '.join(css_classes)
+
+    @staticmethod
+    def get_date_today():
+        """Return today's date."""
+        return datetime.today().date()
+
     def get_trainings(self):
         """Create a dictionary mapping day with training."""
         trainings = self.training_plan.training_set.filter(
