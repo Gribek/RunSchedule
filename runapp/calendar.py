@@ -1,4 +1,8 @@
 from calendar import HTMLCalendar
+from datetime import datetime
+
+from django.shortcuts import reverse
+from django.utils.http import urlencode
 
 
 class TrainingCalendar(HTMLCalendar):
@@ -47,6 +51,21 @@ class TrainingCalendar(HTMLCalendar):
         a('</table>')
         a('\n')
         return ''.join(result)
+
+    def create_date(self, day):
+        """Return full date as datetime object."""
+        return datetime(year=self.year, month=self.month, day=day)
+
+    def create_add_training_url(self, day):
+        """Create a link to add a new training on a specific day."""
+        date = self.create_date(day)
+        url = reverse('runapp:training_create', args=[self.training_plan.pk])
+        return f'{url}?{urlencode({"date": date})}'
+
+    @staticmethod
+    def create_edit_training_url(training_pk):
+        """Create a link to edit a scheduled training."""
+        return reverse('runapp:training_edit', args=[training_pk])
 
     def get_trainings(self):
         """Create a dictionary mapping day with training."""
