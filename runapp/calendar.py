@@ -40,7 +40,7 @@ class TrainingCalendar(HTMLCalendar):
         result = []
         a = result.append
         a(f'<table border="0" cellpadding="0" cellspacing="0"'
-          f' class="{self.month_css}">')
+          f' class="{self.table_css}">')
         a('\n')
         a(self.formatmonthname(year, month, withyear=withyear))
         a('\n')
