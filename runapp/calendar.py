@@ -7,7 +7,7 @@ from django.utils.http import urlencode
 
 class TrainingCalendar(HTMLCalendar):
     """Create a monthly training calendar in HTML"""
-    month_css = ''
+    table_css = ''
     training_css = ''
 
     def __init__(self, training_plan, month, year):
