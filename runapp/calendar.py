@@ -23,15 +23,16 @@ class TrainingCalendar(HTMLCalendar):
             return f'<td class="{self.cssclass_noday}">&nbsp;</td>'
 
         if day in self.trainings:  # training days
-            css_class = ''
-            link = ''
+            training = self.trainings[day]
+            css_class = self.get_css_class(day, weekday, True)
+            link = self.create_edit_training_url(training.pk)
             return f'<td class="{css_class}"><a href="{link}">{day}<br>' \
-                   f'<div class="{self.training_css}">{self.trainings[day]}' \
+                   f'<div class="{self.training_css}">{training}' \
                    f'</div></a></td>'
 
         else:  # non-training days
-            css_class = ''
-            link = ''
+            css_class = self.get_css_class(day, weekday, False)
+            link = self.create_add_training_url(day)
             return f'<td class="{css_class}"><a href="{link}">{day}</a></td>'
 
     def formatmonth(self, year, month, withyear=True):
