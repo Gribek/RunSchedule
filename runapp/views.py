@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import TemplateView
 
+from runapp.calendar import TrainingCalendar
 from runapp.forms import UserForm, TrainingPlanForm, SelectCurrentPlanForm, \
     TrainingForm
 from runapp.models import TrainingPlan, Training
@@ -197,3 +198,22 @@ class TrainingDeleteView(View):
         plan.confirm_owner(request.user)
         training.delete()
         return redirect(plan)
+
+
+class CurrentPlanCalendarView(View):
+    """Display a monthly calendar with the user's current plan."""
+
+    def get(self, request, month, year):
+        """Display a calendar for the given month."""
+        current_plan = TrainingPlan.get_current(request.user)
+        context = {'training_plan': current_plan}
+        if current_plan is not None:
+            calendar = TrainingCalendar(current_plan, month, year)
+            monthly_calendar = calendar.formatmonth(year, month)
+            previous_month, next_month = calendar.previous_and_next_month()
+            context.update({
+                'monthly_calendar': monthly_calendar,
+                'previous_month': previous_month,
+                'next_month': next_month,
+            })
+        return render(request, 'runapp/current_plan_calendar.html', context)
