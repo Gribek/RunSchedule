@@ -94,7 +94,11 @@ class TrainingCalendar(HTMLCalendar):
         return {t.date.day: t for t in trainings}
 
     def previous_and_next_month(self):
-        """Calculate previous and next month and year."""
+        """Calculate the previous and next month.
+
+        Return previous and next month dictionaries containing month
+        and year numbers for these months.
+        """
         first_day_current_month = self.create_date(day=1)
         last_day_previous_month = first_day_current_month - timedelta(days=1)
         some_day_next_month = (first_day_current_month + timedelta(days=32))
