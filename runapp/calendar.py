@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 
 from django.shortcuts import reverse
 from django.utils.http import urlencode
+from django.utils.safestring import mark_safe
 
 
 class TrainingCalendar(HTMLCalendar):
@@ -51,7 +52,7 @@ class TrainingCalendar(HTMLCalendar):
             a('\n')
         a('</table>')
         a('\n')
-        return ''.join(result)
+        return mark_safe(''.join(result))
 
     def create_date(self, day):
         """Return full date as datetime object."""
