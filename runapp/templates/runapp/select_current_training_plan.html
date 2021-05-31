@@ -1,12 +1,19 @@
 {% extends 'runapp/base_runapp.html' %}
 
 {% block runapp_content %}
-    <div>
-        <form method="post">
-            {{ form.as_p }}
-            <input type="submit" value="Select">
-            <a href="{% url 'runapp:calendar' today.month today.year %}">Cancel</a>
-            {% csrf_token %}
-        </form>
-    </div>
+    {% if form.current_plan|length == 0 %}
+        <div>
+            No training plans found.
+            <a href="{% url 'runapp:training_plan_create' %}">Create a new plan.</a>
+        </div>
+    {% else %}
+        <div>
+            <form method="post">
+                {{ form.as_p }}
+                <input type="submit" value="Select">
+                <a href="{% url 'runapp:calendar' today.month today.year %}">Cancel</a>
+                {% csrf_token %}
+            </form>
+        </div>
+    {% endif %}
 {% endblock %}
