@@ -118,7 +118,10 @@ class Training(models.Model):
                                       unique_for_date='date')
 
     def __str__(self):
-        return f'{self.main_training}\n + {self.additional_training}'
+        result = self.main_training
+        if self.additional_training:
+            result += f' + {self.additional_training}'
+        return result
 
 
 class TrainingDiary(models.Model):
