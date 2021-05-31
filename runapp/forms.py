@@ -41,5 +41,8 @@ class SelectCurrentPlanForm(forms.Form):
         super(SelectCurrentPlanForm, self).__init__(**kwargs)
         user_plans = [(plan.id, plan.name) for plan in
                       TrainingPlan.objects.filter(owner=user)]
+        current_plan = TrainingPlan.get_current(user)
+        initial_value = current_plan.pk if current_plan else None
         self.fields['current_plan'] = forms.ChoiceField(
-            choices=user_plans, label='Choose your current plan')
+            choices=user_plans, label='Choose your current plan',
+            initial=initial_value)

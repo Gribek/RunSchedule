@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import TemplateView
 
-from runapp.calendar import TrainingCalendar
+from runapp.calendar import TrainingCalendar, get_date_today
 from runapp.forms import UserForm, TrainingPlanForm, SelectCurrentPlanForm, \
     TrainingForm
 from runapp.models import TrainingPlan, Training
@@ -130,7 +130,8 @@ class SelectCurrentTrainingPlanView(View):
         if form.is_valid():
             plan_id = form.cleaned_data.get('current_plan')
             TrainingPlan.set_current(plan_id)
-            return redirect('runapp:training_plan_list')
+            today = get_date_today()
+            return redirect('runapp:calendar', today.month, today.year)
 
         return render(request, self.template_name, {'form': form})
 

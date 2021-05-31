@@ -26,6 +26,7 @@
             <div>
                 {{ training }}
                 <form style="display: inline">
+                    <a href="{% url 'runapp:training_edit' training.pk %}">Edit</a>
                     <button formmethod="get" formaction="{% url 'runapp:training_delete' training.pk %}">Delete</button>
                 </form>
             </div>
