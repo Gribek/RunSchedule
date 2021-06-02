@@ -6,7 +6,12 @@
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="Save training">
-            <a href="{{ training_plan.get_absolute_url }}">Cancel</a>
+            {% if date %}
+                <a href="{% url 'runapp:calendar' date.month date.year %}">Cancel</a>
+            {% else %}
+                <a href="{{ training_plan.get_absolute_url }}">Cancel</a>
+            {% endif %}
+
         </form>
     </div>
 {% endblock %}

@@ -26,7 +26,7 @@ class TrainingCalendar(HTMLCalendar):
         if day in self.trainings:  # training days
             training = self.trainings[day]
             css_class = self.get_css_class(day, weekday, True)
-            link = self.create_edit_training_url(training.pk)
+            link = self.create_edit_training_url(training)
             return f'<td class="{css_class}"><a href="{link}">{day}<br>' \
                    f'<div class="{self.training_css}">{training}' \
                    f'</div></a></td>'
@@ -56,7 +56,7 @@ class TrainingCalendar(HTMLCalendar):
 
     def create_date(self, day):
         """Return full date as datetime object."""
-        return datetime(year=self.year, month=self.month, day=day)
+        return datetime(year=self.year, month=self.month, day=day).date()
 
     def create_add_training_url(self, day):
         """Create a link to add a new training on a specific day."""
@@ -65,9 +65,10 @@ class TrainingCalendar(HTMLCalendar):
         return f'{url}?{urlencode({"date": date})}'
 
     @staticmethod
-    def create_edit_training_url(training_pk):
+    def create_edit_training_url(training):
         """Create a link to edit a scheduled training."""
-        return reverse('runapp:training_edit', args=[training_pk])
+        url = reverse('runapp:training_edit', args=[training.pk])
+        return f'{url}?{urlencode({"date": training.date})}'
 
     def get_css_class(self, day, weekday, is_training_day):
         """Create a string with css classes for a table cell."""
@@ -110,3 +111,11 @@ class TrainingCalendar(HTMLCalendar):
 def get_date_today():
     """Return today's date."""
     return datetime.today().date()
+
+
+def str_to_datetime(date):
+    """Return date as datetime object."""
+    try:
+        return datetime.strptime(date, '%Y-%m-%d')
+    except TypeError:
+        return None

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import TemplateView
 
-from runapp.calendar import TrainingCalendar, get_date_today
+from runapp.calendar import TrainingCalendar, get_date_today, str_to_datetime
 from runapp.forms import UserForm, TrainingPlanForm, SelectCurrentPlanForm, \
     TrainingForm
 from runapp.models import TrainingPlan, Training
@@ -145,8 +145,9 @@ class TrainingCreateView(View):
         """Display the form for creating a new training."""
         training_plan = get_object_or_404(TrainingPlan, pk=plan_pk)
         training_plan.confirm_owner(request.user)
-        form = self.form_class()
-        context = {'form': form, 'training_plan': training_plan}
+        date = str_to_datetime(request.GET.get('date'))
+        form = self.form_class(initial={'date': date})
+        context = {'form': form, 'training_plan': training_plan, 'date': date}
         return render(request, self.template_name, context)
 
     def post(self, request, plan_pk):
@@ -155,7 +156,10 @@ class TrainingCreateView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.instance.training_plan = training_plan
-            form.save()
+            training = form.save()
+            if request.GET.get('date'):
+                return redirect('runapp:calendar', training.date.month,
+                                training.date.year)
             return redirect(training_plan)
 
         context = {'form': form, 'training_plan': training_plan}
@@ -172,8 +176,9 @@ class TrainingEditView(View):
         training = get_object_or_404(Training, pk=pk)
         plan = training.training_plan
         plan.confirm_owner(request.user)
+        date = str_to_datetime(request.GET.get('date'))
         form = self.form_class(instance=training)
-        context = {'form': form, 'training_plan': plan}
+        context = {'form': form, 'training_plan': plan, 'date': date}
         return render(request, self.template_name, context)
 
     def post(self, request, pk):
@@ -183,6 +188,9 @@ class TrainingEditView(View):
         form = self.form_class(data=request.POST, instance=training)
         if form.is_valid():
             form.save()
+            if request.GET.get('date'):
+                return redirect('runapp:calendar', training.date.month,
+                                training.date.year)
             return redirect(plan)
 
         context = {'form': form, 'training_plan': plan}
