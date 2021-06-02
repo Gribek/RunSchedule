@@ -115,4 +115,7 @@ def get_date_today():
 
 def str_to_datetime(date):
     """Return date as datetime object."""
-    return datetime.strptime(date, '%Y-%m-%d')
+    try:
+        return datetime.strptime(date, '%Y-%m-%d')
+    except TypeError:
+        return None
