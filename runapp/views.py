@@ -176,8 +176,9 @@ class TrainingEditView(View):
         training = get_object_or_404(Training, pk=pk)
         plan = training.training_plan
         plan.confirm_owner(request.user)
+        date = str_to_datetime(request.GET.get('date'))
         form = self.form_class(instance=training)
-        context = {'form': form, 'training_plan': plan}
+        context = {'form': form, 'training_plan': plan, 'date': date}
         return render(request, self.template_name, context)
 
     def post(self, request, pk):
@@ -187,6 +188,9 @@ class TrainingEditView(View):
         form = self.form_class(data=request.POST, instance=training)
         if form.is_valid():
             form.save()
+            if request.GET.get('date'):
+                return redirect('runapp:calendar', training.date.month,
+                                training.date.year)
             return redirect(plan)
 
         context = {'form': form, 'training_plan': plan}
