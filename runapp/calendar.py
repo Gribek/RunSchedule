@@ -56,7 +56,7 @@ class TrainingCalendar(HTMLCalendar):
 
     def create_date(self, day):
         """Return full date as datetime object."""
-        return datetime(year=self.year, month=self.month, day=day)
+        return datetime(year=self.year, month=self.month, day=day).date()
 
     def create_add_training_url(self, day):
         """Create a link to add a new training on a specific day."""
