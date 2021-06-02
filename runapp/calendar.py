@@ -26,7 +26,7 @@ class TrainingCalendar(HTMLCalendar):
         if day in self.trainings:  # training days
             training = self.trainings[day]
             css_class = self.get_css_class(day, weekday, True)
-            link = self.create_edit_training_url(training.pk)
+            link = self.create_edit_training_url(training)
             return f'<td class="{css_class}"><a href="{link}">{day}<br>' \
                    f'<div class="{self.training_css}">{training}' \
                    f'</div></a></td>'
@@ -65,9 +65,9 @@ class TrainingCalendar(HTMLCalendar):
         return f'{url}?{urlencode({"date": date})}'
 
     @staticmethod
-    def create_edit_training_url(training_pk):
+    def create_edit_training_url(training):
         """Create a link to edit a scheduled training."""
-        return reverse('runapp:training_edit', args=[training_pk])
+        return reverse('runapp:training_edit', args=[training.pk])
 
     def get_css_class(self, day, weekday, is_training_day):
         """Create a string with css classes for a table cell."""
