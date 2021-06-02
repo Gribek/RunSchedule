@@ -111,3 +111,8 @@ class TrainingCalendar(HTMLCalendar):
 def get_date_today():
     """Return today's date."""
     return datetime.today().date()
+
+
+def str_to_datetime(date):
+    """Return date as datetime object."""
+    return datetime.strptime(date, '%Y-%m-%d')
