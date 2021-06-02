@@ -67,7 +67,8 @@ class TrainingCalendar(HTMLCalendar):
     @staticmethod
     def create_edit_training_url(training):
         """Create a link to edit a scheduled training."""
-        return reverse('runapp:training_edit', args=[training.pk])
+        url = reverse('runapp:training_edit', args=[training.pk])
+        return f'{url}?{urlencode({"date": training.date})}'
 
     def get_css_class(self, day, weekday, is_training_day):
         """Create a string with css classes for a table cell."""
