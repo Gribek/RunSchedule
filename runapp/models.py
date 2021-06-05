@@ -118,10 +118,14 @@ class Training(models.Model):
                                       unique_for_date='date')
 
     def __str__(self):
-        result = self.main_training
+        return self.training_information()
+
+    def training_information(self):
+        """Prepare information about a training."""
+        info = self.main_training
         if self.additional_training:
-            result += f' + {self.additional_training}'
-        return result
+            info += f' + {self.additional_training}'
+        return info
 
 
 class TrainingDiary(models.Model):
