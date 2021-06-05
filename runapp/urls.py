@@ -31,4 +31,6 @@ urlpatterns = [
          views.CurrentPlanCalendarView.as_view(), name='calendar'),
     path('training_diary', views.TrainingDiaryView.as_view(),
          name='training_diary'),
+    path('training_diary/new_entry/<int:training_pk>', views.DiaryEntryCreateView.as_view(),
+         name='diary_entry_create'),
 ]
