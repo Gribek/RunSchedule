@@ -226,3 +226,14 @@ class CurrentPlanCalendarView(View):
                 'next_month': next_month,
             })
         return render(request, 'runapp/current_plan_calendar.html', context)
+
+
+class TrainingDiaryView(View):
+    """View for displaying a training diary."""
+
+    def get(self, request):
+        """Display user training diary."""
+        user = request.user
+        entries = user.trainingdiary_set.all().order_by('date')
+        return render(request, 'runapp/training_diary.html',
+                      {'entries': entries})
