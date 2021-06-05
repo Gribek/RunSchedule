@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 
-from runapp.models import User, TrainingPlan, Training
+from runapp.models import User, TrainingPlan, Training, TrainingDiary
 from runapp.widget import DatePicker
 
 
@@ -46,3 +46,12 @@ class SelectCurrentPlanForm(forms.Form):
         self.fields['current_plan'] = forms.ChoiceField(
             choices=user_plans, label='Choose your current plan',
             initial=initial_value)
+
+
+class DiaryEntryForm(ModelForm):
+    class Meta:
+        model = TrainingDiary
+        exclude = ['user', 'average_speed']
+        widgets = {
+            'date': DatePicker(),
+        }
