@@ -3,9 +3,9 @@ from django.views import View
 from django.views.generic import TemplateView
 
 from runapp.calendar import TrainingCalendar, get_date_today, str_to_datetime
-from runapp.forms import UserForm, TrainingPlanForm, SelectCurrentPlanForm, \
-    TrainingForm
-from runapp.models import TrainingPlan, Training
+from runapp.forms import (UserForm, TrainingPlanForm, SelectCurrentPlanForm,
+                          TrainingForm, DiaryEntryForm)
+from runapp.models import TrainingPlan, Training, TrainingDiary
 
 
 class LandingPageView(View):
@@ -237,3 +237,39 @@ class TrainingDiaryView(View):
         entries = user.trainingdiary_set.all().order_by('date')
         return render(request, 'runapp/training_diary.html',
                       {'entries': entries})
+
+
+class DiaryEntryCreateView(View):
+    """View for adding a new entry to the training diary."""
+    form_class = DiaryEntryForm
+    template_name = 'runapp/diary_entry_create.html'
+
+    def get(self, request, training_pk):
+        """Display the form for creating a new diary entry."""
+        training = get_object_or_404(Training, pk=training_pk)
+        plan = training.training_plan
+        plan.confirm_owner(request.user)
+        if training.completed:
+            return redirect(plan)
+        form = self.form_class(initial={
+            'date': training.date,
+            'training_information': training.training_information()
+        })
+        context = {'form': form, 'plan_pk': plan.id}
+        return render(request, self.template_name, context)
+
+    def post(self, request, training_pk):
+        """Create a new diary entry."""
+        training = get_object_or_404(Training, pk=training_pk)
+        plan = training.training_plan
+        form = self.form_class(data=request.POST)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.instance.average_speed = form.cleaned_data.get(
+                'training_distance') / form.cleaned_data.get('training_time')
+            form.save()
+            training.completed = True
+            training.save()
+            return redirect(plan)
+        context = {'form': form, 'plan_pk': plan.id}
+        return render(request, self.template_name, context)
