@@ -1,0 +1,26 @@
+{% extends 'runapp/base_runapp.html' %}
+
+{% block runapp_content %}
+    <div>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Training</th>
+                <th>Distance</th>
+                <th>Time</th>
+                <th>Average speed</th>
+                <th>Notes</th>
+            </tr>
+            {% for entry in entries %}
+                <tr>
+                    <td>{{ entry.date }}</td>
+                    <td>{{ entry.training_info }}</td>
+                    <td>{{ entry.training_distance }}</td>
+                    <td>{{ entry.training_time }}</td>
+                    <td>{{ entry.average_speed }}</td>
+                    <td>{{ entry.notes }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
