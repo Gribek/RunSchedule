@@ -100,8 +100,8 @@ class TrainingPlanDetailsView(View):
         """Display information about the selected training plan."""
         training_plan = get_object_or_404(TrainingPlan, pk=pk)
         training_plan.confirm_owner(request.user)
-        return render(request, 'runapp/training_plan_details.html',
-                      {'training_plan': training_plan})
+        context = {'training_plan': training_plan, 'today': get_date_today()}
+        return render(request, 'runapp/training_plan_details.html', context)
 
 
 class TrainingPlanListView(View):
