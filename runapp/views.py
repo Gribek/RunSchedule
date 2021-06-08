@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 from runapp.calendar import TrainingCalendar, get_date_today, str_to_datetime
 from runapp.forms import (UserForm, TrainingPlanForm, SelectCurrentPlanForm,
                           TrainingForm, DiaryEntryForm)
-from runapp.models import TrainingPlan, Training, TrainingDiary
+from runapp.models import TrainingPlan, Training
 
 
 class LandingPageView(View):
