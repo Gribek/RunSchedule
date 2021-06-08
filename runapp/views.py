@@ -200,7 +200,7 @@ class TrainingEditView(View):
 class TrainingDeleteView(View):
     """View for deleting a scheduled training."""
 
-    def get(self, request, pk):
+    def post(self, request, pk):
         """Delete the selected training."""
         training = get_object_or_404(Training, pk=pk)
         plan = training.training_plan
