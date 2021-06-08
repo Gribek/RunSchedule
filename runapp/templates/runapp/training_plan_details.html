@@ -26,8 +26,9 @@
             <div>
                 {{ training }}
                 <form style="display: inline">
+                    {% csrf_token %}
                     <a href="{% url 'runapp:training_edit' training.pk %}">Edit</a>
-                    <button formmethod="get" formaction="{% url 'runapp:training_delete' training.pk %}">Delete</button>
+                    <button formmethod="post" formaction="{% url 'runapp:training_delete' training.pk %}">Delete</button>
                 </form>
                 {% if not training.completed and training.date <= today %}
                     <form class="inline">
