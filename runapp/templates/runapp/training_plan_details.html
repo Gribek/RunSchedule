@@ -29,6 +29,11 @@
                     <a href="{% url 'runapp:training_edit' training.pk %}">Edit</a>
                     <button formmethod="get" formaction="{% url 'runapp:training_delete' training.pk %}">Delete</button>
                 </form>
+                {% if not training.completed and training.date <= today %}
+                    <form class="inline">
+                        <button formmethod="get" formaction="{% url 'runapp:diary_entry_create' training.pk %}">Add to diary</button>
+                    </form>
+                {% endif %}
             </div>
         {% empty %}
             <p>No trainings planed</p>
