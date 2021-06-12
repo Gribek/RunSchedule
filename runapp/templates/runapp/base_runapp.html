@@ -2,27 +2,35 @@
 
 {% block content %}
     {% block navbar %}
-        <nav>
-            <div>
-                <ul>
-                    <li>
-                        <a href="{% url 'runapp:homepage' %}">Homepage</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'runapp:calendar' today.month today.year %}">Calendar</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'runapp:training_plan_list' %}">My plans</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'runapp:training_diary' %}">Training diary</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                {% if user.is_authenticated %}
-                    {{ user.email }} <a href="{% url 'runapp:logout' %}">Sign out</a>
-                {% endif %}
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'runapp:homepage' %}">Homepage</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'runapp:calendar' today.month today.year %}">Calendar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'runapp:training_plan_list' %}">My plans</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'runapp:training_diary' %}">Training diary</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ user.email }}
+                          </a>
+                          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{% url 'runapp:logout' %}">Sign out</a></li>
+                          </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     {% endblock navbar %}
