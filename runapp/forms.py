@@ -64,3 +64,19 @@ class DiaryEntryForm(ModelForm):
             self.add_error('date', 'You cannot add an entry for training '
                                    'that has not yet taken place')
         return date
+
+    def clean_training_distance(self):
+        """Check that the training distance is greater than zero."""
+        distance = self.cleaned_data['training_distance']
+        if not distance > 0:
+            self.add_error('training_distance',
+                           'Training distance must be greater than zero')
+        return distance
+
+    def clean_training_time(self):
+        """Check that the training time is greater than zero."""
+        time = self.cleaned_data['training_time']
+        if not time > 0:
+            self.add_error('training_time',
+                           'Training time must be greater than zero')
+        return time
