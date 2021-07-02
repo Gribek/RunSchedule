@@ -154,7 +154,7 @@ class TrainingCreateView(LoginRequiredMixin, View):
     def post(self, request, plan_pk):
         """Create a new training."""
         training_plan = get_object_or_404(TrainingPlan, pk=plan_pk)
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, user=request.user)
         form.instance.training_plan = training_plan
         if form.is_valid():
             training = form.save()
@@ -186,7 +186,8 @@ class TrainingEditView(LoginRequiredMixin, View):
         """Edit the selected training."""
         training = get_object_or_404(Training, pk=pk)
         plan = training.training_plan
-        form = self.form_class(data=request.POST, instance=training)
+        form = self.form_class(data=request.POST, instance=training,
+                               user=request.user)
         if form.is_valid():
             form.save()
             if request.GET.get('date'):
