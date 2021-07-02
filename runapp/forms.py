@@ -49,6 +49,18 @@ class TrainingForm(ModelForm):
             'date': DatePicker(),
         }
 
+    def clean(self):
+        """Validate ownership of the training plan.
+
+        Make sure the user does not make changes to another user's
+        training plan.
+        """
+        cleaned_data = super().clean()
+        owner = self.instance.training_plan.owner
+        if self.user != owner:
+            raise PermissionDenied
+        return cleaned_data
+
 
 class SelectCurrentPlanForm(forms.Form):
     """Form for selecting the current training plan."""
