@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from runapp.calendar import TrainingCalendar, get_date_today, str_to_datetime
 from runapp.forms import (UserForm, TrainingPlanForm, SelectCurrentPlanForm,
@@ -22,7 +23,7 @@ class LandingPageView(View):
         return render(request, 'runapp/landing_page.html')
 
 
-class HomepageView(TemplateView):
+class HomepageView(LoginRequiredMixin, TemplateView):
     """View for displaying application homepage."""
     template_name = 'runapp/homepage.html'
 
@@ -47,7 +48,7 @@ class RegisterUserView(View):
         return render(request, self.template_name, {'form': form})
 
 
-class TrainingPlanCreateView(View):
+class TrainingPlanCreateView(LoginRequiredMixin, View):
     """View for creating a new training plan."""
     form_class = TrainingPlanForm
     template_name = 'runapp/training_plan_create.html'
@@ -68,7 +69,7 @@ class TrainingPlanCreateView(View):
         return render(request, self.template_name, {'form': form})
 
 
-class TrainingPlanEditView(View):
+class TrainingPlanEditView(LoginRequiredMixin, View):
     """View for editing an existing training plan."""
     form_class = TrainingPlanForm
     template_name = 'runapp/training_plan_edit.html'
@@ -93,7 +94,7 @@ class TrainingPlanEditView(View):
                       {'form': form, 'plan_id': pk})
 
 
-class TrainingPlanDetailsView(View):
+class TrainingPlanDetailsView(LoginRequiredMixin, View):
     """View for displaying details about the training plan."""
 
     def get(self, request, pk):
@@ -104,7 +105,7 @@ class TrainingPlanDetailsView(View):
         return render(request, 'runapp/training_plan_details.html', context)
 
 
-class TrainingPlanListView(View):
+class TrainingPlanListView(LoginRequiredMixin, View):
     """View for displaying the list of user training plans."""
 
     def get(self, request):
@@ -114,7 +115,7 @@ class TrainingPlanListView(View):
                       {'training_plans': training_plans})
 
 
-class SelectCurrentTrainingPlanView(View):
+class SelectCurrentTrainingPlanView(LoginRequiredMixin, View):
     """View for selecting the current training plan."""
     form_class = SelectCurrentPlanForm
     template_name = 'runapp/select_current_training_plan.html'
@@ -136,7 +137,7 @@ class SelectCurrentTrainingPlanView(View):
         return render(request, self.template_name, {'form': form})
 
 
-class TrainingCreateView(View):
+class TrainingCreateView(LoginRequiredMixin, View):
     """View for creating a new training."""
     form_class = TrainingForm
     template_name = 'runapp/training_create.html'
@@ -166,7 +167,7 @@ class TrainingCreateView(View):
         return render(request, self.template_name, context)
 
 
-class TrainingEditView(View):
+class TrainingEditView(LoginRequiredMixin, View):
     """View for editing a scheduled training."""
     form_class = TrainingForm
     template_name = 'runapp/training_create.html'
@@ -197,7 +198,7 @@ class TrainingEditView(View):
         return render(request, self.template_name, context)
 
 
-class TrainingDeleteView(View):
+class TrainingDeleteView(LoginRequiredMixin, View):
     """View for deleting a scheduled training."""
 
     def post(self, request, pk):
@@ -209,7 +210,7 @@ class TrainingDeleteView(View):
         return redirect(plan)
 
 
-class CurrentPlanCalendarView(View):
+class CurrentPlanCalendarView(LoginRequiredMixin, View):
     """Display a monthly calendar with the user's current plan."""
 
     def get(self, request, month, year):
@@ -228,7 +229,7 @@ class CurrentPlanCalendarView(View):
         return render(request, 'runapp/current_plan_calendar.html', context)
 
 
-class TrainingDiaryView(View):
+class TrainingDiaryView(LoginRequiredMixin, View):
     """View for displaying a training diary."""
 
     def get(self, request):
@@ -239,7 +240,7 @@ class TrainingDiaryView(View):
                       {'entries': entries})
 
 
-class DiaryEntryCreateView(View):
+class DiaryEntryCreateView(LoginRequiredMixin, View):
     """View for adding a new entry to the training diary."""
     form_class = DiaryEntryForm
     template_name = 'runapp/diary_entry_create.html'
