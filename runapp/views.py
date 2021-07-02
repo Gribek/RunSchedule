@@ -155,8 +155,8 @@ class TrainingCreateView(LoginRequiredMixin, View):
         """Create a new training."""
         training_plan = get_object_or_404(TrainingPlan, pk=plan_pk)
         form = self.form_class(request.POST)
+        form.instance.training_plan = training_plan
         if form.is_valid():
-            form.instance.training_plan = training_plan
             training = form.save()
             if request.GET.get('date'):
                 return redirect('runapp:calendar', training.date.month,
