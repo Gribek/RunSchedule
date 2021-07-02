@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 
 from runapp.models import User, TrainingPlan, Training, TrainingDiary
@@ -24,6 +25,16 @@ class TrainingPlanForm(ModelForm):
         labels = {
             'current_plan': 'Set as current plan'
         }
+
+    def clean(self):
+        """Validate plan start and end dates."""
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+        if end_date < start_date:
+            raise ValidationError(
+                'The start date cannot be later than the end date')
+        return cleaned_data
 
 
 class TrainingForm(ModelForm):
