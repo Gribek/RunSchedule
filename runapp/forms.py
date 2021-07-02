@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.forms import ModelForm
 
 from runapp.models import User, TrainingPlan, Training, TrainingDiary
@@ -38,6 +38,10 @@ class TrainingPlanForm(ModelForm):
 
 
 class TrainingForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super(TrainingForm, self).__init__(*args, **kwargs)
+
     class Meta:
         model = Training
         exclude = ['completed', 'training_plan']
