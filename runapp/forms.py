@@ -4,6 +4,7 @@ from django.forms import ModelForm
 
 from runapp.models import User, TrainingPlan, Training, TrainingDiary
 from runapp.widget import DatePicker
+from runapp.calendar import get_date_today
 
 
 class UserForm(UserCreationForm):
@@ -55,3 +56,11 @@ class DiaryEntryForm(ModelForm):
         widgets = {
             'date': DatePicker(),
         }
+
+    def clean_date(self):
+        """Check that the training date is not later than today."""
+        date = self.cleaned_data['date']
+        if get_date_today() < date:
+            self.add_error('date', 'You cannot add an entry for training '
+                                   'that has not yet taken place')
+        return date
