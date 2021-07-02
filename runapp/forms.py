@@ -61,6 +61,21 @@ class TrainingForm(ModelForm):
             raise PermissionDenied
         return cleaned_data
 
+    def clean_date(self):
+        date = self.cleaned_data['date']
+        training_plan = self.instance.training_plan
+
+        if training_plan.training_set.filter(date=date):
+            self.add_error('date',
+                           'You already have training planned for that day.')
+        if date < training_plan.start_date:
+            self.add_error('date', 'The date of the training cannot be earlier'
+                                   ' than the  training plan start date')
+        if date > training_plan.end_date:
+            self.add_error('date', 'The date of the training cannot be later'
+                                   ' than the training plan end date.')
+        return date
+
 
 class SelectCurrentPlanForm(forms.Form):
     """Form for selecting the current training plan."""
