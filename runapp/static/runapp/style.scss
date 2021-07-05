@@ -39,3 +39,46 @@ $calendar_color_2: #DDE3FD;
 .calendar tbody td {
     transition: background-color 1s ease-out;
 }
+
+.calendar .training_day {
+    background-color: lightgray;
+    border: solid 2px $calendar_color_1;
+}
+
+.calendar .plan_start {
+    border-left: solid 5px green;
+}
+
+.calendar .plan_end {
+    border-right: solid 5px red;
+}
+
+.calendar .today {
+    border: solid 2px #7194dc;
+}
+
+.calendar .training_info {
+    font-size: 16px;
+}
+
+.calendar .training_day {
+    background-color: lightgray;
+    border: solid 2px $calendar_color_1;
+}
+
+.calendar .plan_start {
+    border-left: solid 5px green;
+}
+
+.calendar .plan_end {
+    border-right: solid 5px red;
+}
+
+.calendar .today {
+    border: solid 2px #7194dc;
+}
+
+.calendar .training_info {
+    font-size: 16px;
+}
+
