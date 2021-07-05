@@ -8,8 +8,8 @@ from django.utils.safestring import mark_safe
 
 class TrainingCalendar(HTMLCalendar):
     """Create a monthly training calendar in HTML"""
-    table_css = ''
-    training_css = ''
+    table_css = 'table calendar'
+    training_css = 'training_info'
 
     def __init__(self, training_plan, month, year):
         super(TrainingCalendar, self).__init__()
