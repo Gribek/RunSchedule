@@ -1,15 +1,41 @@
-.training_day {
-    background-color: #798EF6;
+$calendar_color_1: #212529;
+$calendar_color_2: #DDE3FD;
+
+.calendar {
+    table-layout: fixed;
+    text-align: center;
+    height: auto;
+    width: 70%;
 }
 
-.plan_start {
-    background-color: greenyellow;
+.calendar th {
+    text-decoration: None;
+    color: $calendar_color_2;
+    background-color: $calendar_color_1;
 }
 
-.plan_end {
-    background-color: #ff6666;
+.calendar td {
+    border-bottom-width: 0;
+    height: 80px;
+    overflow: hidden;
 }
 
-.today {
-    background-color: #d24dff;
+.calendar a {
+    text-decoration: none;
+    color: $calendar_color_1;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.calendar tbody td:hover {
+    border: solid 2px black;
+    background-color: #82898b;
+}
+
+.calendar tbody td a:hover {
+    color: $calendar_color_2;
+}
+
+.calendar tbody td {
+    transition: background-color 1s ease-out;
 }
