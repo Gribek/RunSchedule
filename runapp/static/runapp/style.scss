@@ -5,7 +5,12 @@ $calendar_color_2: #DDE3FD;
     table-layout: fixed;
     text-align: center;
     height: auto;
-    width: 70%;
+    @media (min-width: 1200px) {
+        width: 70%;
+    }
+    @media (max-width: 1199px) {
+        width: 95%;
+    }
 }
 
 .calendar th {
@@ -23,8 +28,13 @@ $calendar_color_2: #DDE3FD;
 .calendar a {
     text-decoration: none;
     color: $calendar_color_1;
-    font-size: 20px;
     font-style: italic;
+    @media (min-width: 800px) {
+        font-size: 20px;
+    }
+    @media (max-width: 799px) {
+        font-size: 16px;
+    }
 }
 
 .calendar tbody td:hover {
@@ -79,6 +89,11 @@ $calendar_color_2: #DDE3FD;
 }
 
 .calendar .training_info {
-    font-size: 16px;
+    @media (min-width: 800px) {
+        font-size: 16px;
+    }
+    @media (max-width: 799px) {
+        font-size: 12px;
+    }
 }
 

@@ -1,8 +1,13 @@
 .calendar {
   table-layout: fixed;
   text-align: center;
-  height: auto;
-  width: 70%; }
+  height: auto; }
+  @media (min-width: 1200px) {
+    .calendar {
+      width: 70%; } }
+  @media (max-width: 1199px) {
+    .calendar {
+      width: 95%; } }
 
 .calendar th {
   text-decoration: None;
@@ -17,8 +22,13 @@
 .calendar a {
   text-decoration: none;
   color: #212529;
-  font-size: 20px;
   font-style: italic; }
+  @media (min-width: 800px) {
+    .calendar a {
+      font-size: 20px; } }
+  @media (max-width: 799px) {
+    .calendar a {
+      font-size: 16px; } }
 
 .calendar tbody td:hover {
   border: solid 2px black;
@@ -59,7 +69,11 @@
 .calendar .today {
   border: solid 2px #7194dc; }
 
-.calendar .training_info {
-  font-size: 16px; }
+@media (min-width: 800px) {
+  .calendar .training_info {
+    font-size: 16px; } }
+@media (max-width: 799px) {
+  .calendar .training_info {
+    font-size: 12px; } }
 
 /*# sourceMappingURL=style.css.map */
