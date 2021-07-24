@@ -21,8 +21,7 @@
 
 .calendar a {
   text-decoration: none;
-  color: #212529;
-  font-style: italic; }
+  color: #212529; }
   @media (min-width: 800px) {
     .calendar a {
       font-size: 20px; } }
@@ -69,11 +68,13 @@
 .calendar .today {
   border: solid 2px #7194dc; }
 
-@media (min-width: 800px) {
-  .calendar .training_info {
-    font-size: 16px; } }
-@media (max-width: 799px) {
-  .calendar .training_info {
-    font-size: 12px; } }
+.calendar .training_info {
+  font-style: italic; }
+  @media (min-width: 800px) {
+    .calendar .training_info {
+      font-size: 16px; } }
+  @media (max-width: 799px) {
+    .calendar .training_info {
+      font-size: 12px; } }
 
 /*# sourceMappingURL=style.css.map */

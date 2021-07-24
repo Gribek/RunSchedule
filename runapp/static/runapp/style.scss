@@ -28,7 +28,6 @@ $calendar_color_2: #DDE3FD;
 .calendar a {
     text-decoration: none;
     color: $calendar_color_1;
-    font-style: italic;
     @media (min-width: 800px) {
         font-size: 20px;
     }
@@ -89,6 +88,7 @@ $calendar_color_2: #DDE3FD;
 }
 
 .calendar .training_info {
+    font-style: italic;
     @media (min-width: 800px) {
         font-size: 16px;
     }
