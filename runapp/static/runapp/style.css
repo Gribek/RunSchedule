@@ -1,13 +1,14 @@
+@media (min-width: 1200px) {
+  .calendar-container {
+    width: 70%; } }
+@media (max-width: 1199px) {
+  .calendar-container {
+    width: 95%; } }
+
 .calendar {
   table-layout: fixed;
   text-align: center;
   height: auto; }
-  @media (min-width: 1200px) {
-    .calendar {
-      width: 70%; } }
-  @media (max-width: 1199px) {
-    .calendar {
-      width: 95%; } }
 
 .calendar th {
   text-decoration: None;
@@ -21,8 +22,7 @@
 
 .calendar a {
   text-decoration: none;
-  color: #212529;
-  font-style: italic; }
+  color: #212529; }
   @media (min-width: 800px) {
     .calendar a {
       font-size: 20px; } }
@@ -69,11 +69,26 @@
 .calendar .today {
   border: solid 2px #7194dc; }
 
+.calendar .training_info {
+  font-style: italic; }
+  @media (min-width: 800px) {
+    .calendar .training_info {
+      font-size: 16px; } }
+  @media (max-width: 799px) {
+    .calendar .training_info {
+      font-size: 12px; } }
+
+.button-container {
+  text-align: center;
+  margin: 10px; }
+
 @media (min-width: 800px) {
-  .calendar .training_info {
+  .calendar-buttons a {
+    width: 100px;
     font-size: 16px; } }
 @media (max-width: 799px) {
-  .calendar .training_info {
+  .calendar-buttons a {
+    width: 80px;
     font-size: 12px; } }
 
 /*# sourceMappingURL=style.css.map */

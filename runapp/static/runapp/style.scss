@@ -1,16 +1,19 @@
 $calendar_color_1: #212529;
 $calendar_color_2: #DDE3FD;
 
-.calendar {
-    table-layout: fixed;
-    text-align: center;
-    height: auto;
+.calendar-container {
     @media (min-width: 1200px) {
         width: 70%;
     }
     @media (max-width: 1199px) {
         width: 95%;
     }
+}
+
+.calendar {
+    table-layout: fixed;
+    text-align: center;
+    height: auto;
 }
 
 .calendar th {
@@ -28,7 +31,6 @@ $calendar_color_2: #DDE3FD;
 .calendar a {
     text-decoration: none;
     color: $calendar_color_1;
-    font-style: italic;
     @media (min-width: 800px) {
         font-size: 20px;
     }
@@ -89,10 +91,28 @@ $calendar_color_2: #DDE3FD;
 }
 
 .calendar .training_info {
+    font-style: italic;
     @media (min-width: 800px) {
         font-size: 16px;
     }
     @media (max-width: 799px) {
+        font-size: 12px;
+    }
+}
+
+.button-container {
+    text-align: center;
+    margin: 10px;
+}
+
+.calendar-buttons a {
+    @media (min-width: 800px) {
+        width: 100px;
+        font-size: 16px;
+
+    }
+    @media (max-width: 799px) {
+        width: 80px;
         font-size: 12px;
     }
 }
