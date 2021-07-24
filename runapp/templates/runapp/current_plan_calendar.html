@@ -1,24 +1,22 @@
 {% extends 'runapp/base_runapp.html' %}
 
 {% block runapp_content %}
-    <div>
+    <div class="calendar-container">
         {% if training_plan %}
-            <div>
+            <div class="button-container">
                 <h4>Your current training plan: {{ training_plan.name }}</h4>
-            </div>
-            <div>
-                <a href="{{ training_plan.get_absolute_url }}">Plan details</a>
-                <a href="{% url 'runapp:select_current_training_plan' %}">Change training plan</a>
+                <a class="btn btn-dark" href="{{ training_plan.get_absolute_url }}">Plan details</a>
+                <a class="btn btn-dark" href="{% url 'runapp:select_current_training_plan' %}">Change training plan</a>
             </div>
             <div>
                 {{ monthly_calendar }}
             </div>
-            <div>
-                <a href="{% url 'runapp:calendar' training_plan.start_date.month training_plan.start_date.year %}">First month</a>
-                <a href="{% url 'runapp:calendar' previous_month.month previous_month.year %}">Previous month</a>
-                <a href="{% url 'runapp:calendar' today.month today.year %}">Current month</a>
-                <a href="{% url 'runapp:calendar' next_month.month next_month.year %}">Next month</a>
-                <a href="{% url 'runapp:calendar' training_plan.end_date.month training_plan.end_date.year %}">Last month</a>
+            <div class="button-container calendar-buttons">
+                <a class="btn btn-dark" href="{% url 'runapp:calendar' training_plan.start_date.month training_plan.start_date.year %}">First</a>
+                <a class="btn btn-dark" href="{% url 'runapp:calendar' previous_month.month previous_month.year %}">Previous</a>
+                <a class="btn btn-dark" href="{% url 'runapp:calendar' today.month today.year %}">Current</a>
+                <a class="btn btn-dark" href="{% url 'runapp:calendar' next_month.month next_month.year %}">Next</a>
+                <a class="btn btn-dark" href="{% url 'runapp:calendar' training_plan.end_date.month training_plan.end_date.year %}">Last</a>
             </div>
         {% else %}
             <div>
