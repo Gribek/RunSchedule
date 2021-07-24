@@ -4,7 +4,7 @@
     <div class="calendar-container">
         {% if training_plan %}
             <div class="button-container">
-                <h4>Your current training plan: {{ training_plan.name }}</h4>
+                <h4>Training plan: {{ training_plan.name }}</h4>
                 <a class="btn btn-dark" href="{{ training_plan.get_absolute_url }}">Plan details</a>
                 <a class="btn btn-dark" href="{% url 'runapp:select_current_training_plan' %}">Change training plan</a>
             </div>
