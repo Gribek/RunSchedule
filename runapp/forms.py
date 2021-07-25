@@ -46,7 +46,10 @@ class TrainingForm(ModelForm):
         model = Training
         exclude = ['completed', 'training_plan']
         widgets = {
-            'date': DatePicker(),
+            'date': DatePicker(attrs={'class': 'form-control'}),
+            'main_training': forms.TextInput(attrs={'class': 'form-control'}),
+            'additional_training': forms.TextInput(
+                attrs={'class': 'form-control'}),
         }
 
     def clean(self):
