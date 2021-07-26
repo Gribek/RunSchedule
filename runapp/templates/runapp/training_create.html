@@ -2,16 +2,32 @@
 
 {% block runapp_content %}
     <div>
-        <form method="post">
+        <form method="post" class="row g-3">
             {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Save training">
-            {% if date %}
-                <a href="{% url 'runapp:calendar' date.month date.year %}">Cancel</a>
-            {% else %}
-                <a href="{{ training_plan.get_absolute_url }}">Cancel</a>
-            {% endif %}
-
+            {{ form.non_field_errors }}
+            <div class="col-8 col-md-5 col-xl-3">
+                {{ form.main_training.errors }}
+                <label for="{{ form.main_training.id_for_label }}" class="form-label">{{ form.main_training.label }}</label>
+                {{ form.main_training }}
+            </div>
+            <div class="col-8 col-md-5 col-xl-3">
+                {{ form.additional_training.errors }}
+                <label for="{{ form.additional_training.id_for_label }}" class="form-label">{{ form.additional_training.label }}</label>
+                {{ form.additional_training }}
+            </div>
+            <div class="col-5 col-md-3 col-xl-2">
+                {{ form.date.errors }}
+                <label for="{{ form.date.id_for_label }}" class="form-label">{{ form.date.label }}</label>
+                {{ form.date }}
+            </div>
+            <div class="col-12">
+                <input class="btn btn-dark" type="submit" value="Save training">
+                {% if date %}
+                    <a class="btn btn-dark" href="{% url 'runapp:calendar' date.month date.year %}">Cancel</a>
+                {% else %}
+                    <a class="btn btn-dark" href="{{ training_plan.get_absolute_url }}">Cancel</a>
+                {% endif %}
+            </div>
         </form>
     </div>
 {% endblock %}

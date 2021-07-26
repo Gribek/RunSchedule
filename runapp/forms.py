@@ -7,6 +7,9 @@ from runapp.models import User, TrainingPlan, Training, TrainingDiary
 from runapp.widget import DatePicker
 from runapp.calendar import get_date_today
 
+CSS_INPUT = 'form-control'
+CSS_INPUT_CHECKBOX = 'form-check-input'
+
 
 class UserForm(UserCreationForm):
     class Meta:
@@ -19,8 +22,13 @@ class TrainingPlanForm(ModelForm):
         model = TrainingPlan
         exclude = ['owner']
         widgets = {
-            'start_date': DatePicker(),
-            'end_date': DatePicker(),
+            'start_date': DatePicker(attrs={'class': CSS_INPUT}),
+            'end_date': DatePicker(attrs={'class': CSS_INPUT}),
+            'name': forms.TextInput(attrs={'class': CSS_INPUT}),
+            'description': forms.Textarea(attrs={'class': CSS_INPUT}),
+            'current_plan': forms.CheckboxInput(
+                attrs={'class': CSS_INPUT_CHECKBOX}),
+
         }
         labels = {
             'current_plan': 'Set as current plan'
@@ -46,7 +54,9 @@ class TrainingForm(ModelForm):
         model = Training
         exclude = ['completed', 'training_plan']
         widgets = {
-            'date': DatePicker(),
+            'date': DatePicker(attrs={'class': CSS_INPUT}),
+            'main_training': forms.TextInput(attrs={'class': CSS_INPUT}),
+            'additional_training': forms.TextInput(attrs={'class': CSS_INPUT}),
         }
 
     def clean(self):
@@ -89,6 +99,7 @@ class SelectCurrentPlanForm(forms.Form):
         self.fields['current_plan'] = forms.ChoiceField(
             choices=user_plans, label='Choose your current plan',
             initial=initial_value)
+        self.fields['current_plan'].widget.attrs.update({'class': CSS_INPUT})
 
 
 class DiaryEntryForm(ModelForm):
@@ -96,7 +107,12 @@ class DiaryEntryForm(ModelForm):
         model = TrainingDiary
         exclude = ['user', 'average_speed']
         widgets = {
-            'date': DatePicker(),
+            'date': DatePicker(attrs={'class': CSS_INPUT}),
+            'training_information': forms.TextInput(
+                attrs={'class': CSS_INPUT}),
+            'training_distance': forms.NumberInput(attrs={'class': CSS_INPUT}),
+            'training_time': forms.NumberInput(attrs={'class': CSS_INPUT}),
+            'notes': forms.Textarea(attrs={'class': CSS_INPUT}),
         }
 
     def clean_date(self):

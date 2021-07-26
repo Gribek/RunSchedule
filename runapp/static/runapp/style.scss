@@ -1,12 +1,17 @@
 $calendar_color_1: #212529;
 $calendar_color_2: #DDE3FD;
 
+body {
+    margin-left: 5px;
+}
+
 .calendar-container {
     @media (min-width: 1200px) {
         width: 70%;
     }
     @media (max-width: 1199px) {
-        width: 95%;
+        width: 98%;
+        margin:auto;
     }
 }
 
@@ -116,4 +121,3 @@ $calendar_color_2: #DDE3FD;
         font-size: 12px;
     }
 }
-

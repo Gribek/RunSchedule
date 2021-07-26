@@ -1,9 +1,13 @@
+body {
+  margin-left: 5px; }
+
 @media (min-width: 1200px) {
   .calendar-container {
     width: 70%; } }
 @media (max-width: 1199px) {
   .calendar-container {
-    width: 95%; } }
+    width: 98%;
+    margin: auto; } }
 
 .calendar {
   table-layout: fixed;
