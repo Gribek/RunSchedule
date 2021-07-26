@@ -106,7 +106,11 @@ class DiaryEntryForm(ModelForm):
         model = TrainingDiary
         exclude = ['user', 'average_speed']
         widgets = {
-            'date': DatePicker(),
+            'date': DatePicker(attrs={'class': 'form-control'}),
+            'training_information': forms.TextInput(attrs={'class': 'form-control'}),
+            'training_distance': forms.NumberInput(attrs={'class': 'form-control'}),
+            'training_time': forms.NumberInput(attrs={'class': 'form-control'}),
+            'notes': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
     def clean_date(self):
