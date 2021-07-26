@@ -92,6 +92,8 @@ class SelectCurrentPlanForm(forms.Form):
         self.fields['current_plan'] = forms.ChoiceField(
             choices=user_plans, label='Choose your current plan',
             initial=initial_value)
+        self.fields['current_plan'].widget.attrs.update(
+            {'class': 'form-control'})
 
 
 class DiaryEntryForm(ModelForm):
