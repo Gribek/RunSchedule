@@ -2,12 +2,39 @@
 
 {% block runapp_content %}
     <div>
-        <form method="post">
+        <form method="post" class="row g-3">
             {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Add entry to training diary">
-            <button type="reset">Reset</button>
-            <a href="{% url 'runapp:training_plan_details' plan_pk %}">Cancel</a>
+            {{ form.non_field_errors }}
+            <div class="col-5 col-md-3 col-xl-2">
+                {{ form.date.errors }}
+                <label for="{{ form.date.id_for_label }}" class="form-label">{{ form.date.label }}</label>
+                {{ form.date }}
+            </div>
+            <div class="col-8 col-md-5 col-xl-4">
+                {{ form.training_information.errors }}
+                <label for="{{ form.training_information.id_for_label }}" class="form-label">{{ form.training_information.label }}</label>
+                {{ form.training_information }}
+            </div>
+            <div class="col-3 col-md-2">
+                {{ form.training_distance.errors }}
+                <label for="{{ form.training_distance.id_for_label }}" class="form-label">{{ form.training_distance.label }}</label>
+                {{ form.training_distance }}
+            </div>
+            <div class="col-3 col-md-2">
+                {{ form.training_time.errors }}
+                <label for="{{ form.training_time.id_for_label }}" class="form-label">{{ form.training_time.label }}</label>
+                {{ form.training_time }}
+            </div>
+            <div class="col-10 col-md-6 col-xl-4">
+                {{ form.notes.errors }}
+                <label for="{{ form.notes.id_for_label }}" class="form-label">{{ form.notes.label }}</label>
+                {{ form.notes }}
+            </div>
+            <div class="col-12">
+                <input class="btn btn-dark" type="submit" value="Add entry to training diary">
+                <button class="btn btn-dark" type="reset">Reset</button>
+                <a class="btn btn-dark" href="{% url 'runapp:training_plan_details' plan_pk %}">Cancel</a>
+            </div>
         </form>
     </div>
 {% endblock %}
