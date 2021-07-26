@@ -19,8 +19,13 @@ class TrainingPlanForm(ModelForm):
         model = TrainingPlan
         exclude = ['owner']
         widgets = {
-            'start_date': DatePicker(),
-            'end_date': DatePicker(),
+            'start_date': DatePicker(attrs={'class': 'form-control'}),
+            'end_date': DatePicker(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'current_plan': forms.CheckboxInput(
+                attrs={'class': 'form-check-input'}),
+
         }
         labels = {
             'current_plan': 'Set as current plan'
