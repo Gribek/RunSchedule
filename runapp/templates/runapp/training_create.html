@@ -1,7 +1,7 @@
 {% extends 'runapp/base_runapp.html' %}
 
 {% block runapp_content %}
-    <div class="left-margin">
+    <div>
         <form method="post" class="row g-3">
             {% csrf_token %}
             {{ form.non_field_errors }}
