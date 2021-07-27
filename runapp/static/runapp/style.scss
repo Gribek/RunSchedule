@@ -5,6 +5,12 @@ body {
     margin-left: 5px;
 }
 
+.empty-container {
+    @media (min-width: 720px) {
+        width: 700px;
+    }
+}
+
 .calendar-container {
     @media (min-width: 1200px) {
         width: 70%;

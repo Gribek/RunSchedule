@@ -1,6 +1,10 @@
 body {
   margin-left: 5px; }
 
+@media (min-width: 720px) {
+  .empty-container {
+    width: 700px; } }
+
 @media (min-width: 1200px) {
   .calendar-container {
     width: 70%; } }
