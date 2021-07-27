@@ -85,4 +85,34 @@ body {
   color: red;
   font-style: italic; }
 
+#training-container {
+  display: flex;
+  flex-wrap: wrap; }
+
+#training-container .training {
+  font-style: italic;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  background-color: lightgray;
+  box-shadow: rgba(0, 0, 0, 0.6) 7px 7px 10px 5px;
+  border: solid 2px black;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 10px;
+  height: 160px; }
+
+#training-container span {
+  display: block; }
+
+#training-container span.completed {
+  margin-top: 15px; }
+
+#training-container form {
+  margin-top: 2px;
+  margin-bottom: 5px; }
+
+#training-container form a {
+  font-style: normal; }
+
 /*# sourceMappingURL=style.css.map */
