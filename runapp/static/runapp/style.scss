@@ -85,8 +85,12 @@ body {
 }
 
 .button-container {
-    text-align: center;
     margin: 10px;
+}
+
+.buttons-center {
+    @extend .button-container;
+    text-align: center;
 }
 
 .calendar-buttons a {

@@ -66,9 +66,11 @@ body {
     .calendar .training_info {
       font-size: 12px; } }
 
-.button-container {
-  text-align: center;
+.button-container, .buttons-center {
   margin: 10px; }
+
+.buttons-center {
+  text-align: center; }
 
 @media (min-width: 800px) {
   .calendar-buttons a {
