@@ -3,7 +3,7 @@
 {% block runapp_content %}
     <div class="calendar-container">
         {% if training_plan %}
-            <div class="button-container">
+            <div class="buttons-center">
                 <h4>Training plan: {{ training_plan.name }}</h4>
                 <a class="btn btn-dark" href="{{ training_plan.get_absolute_url }}">Plan details</a>
                 <a class="btn btn-dark" href="{% url 'runapp:select_current_training_plan' %}">Change training plan</a>
@@ -11,7 +11,7 @@
             <div>
                 {{ monthly_calendar }}
             </div>
-            <div class="button-container calendar-buttons">
+            <div class="buttons-center calendar-buttons">
                 <a class="btn btn-dark" href="{% url 'runapp:calendar' training_plan.start_date.month training_plan.start_date.year %}">First</a>
                 <a class="btn btn-dark" href="{% url 'runapp:calendar' previous_month.month previous_month.year %}">Previous</a>
                 <a class="btn btn-dark" href="{% url 'runapp:calendar' today.month today.year %}">Current</a>
