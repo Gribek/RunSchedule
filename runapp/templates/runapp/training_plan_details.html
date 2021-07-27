@@ -15,29 +15,36 @@
             Plan end date: {{ training_plan.end_date|date:'d M Y' }}
         </p>
     </div>
-    <div>
-        <a href="{% url 'runapp:training_create' training_plan.pk %}">Add new training</a>
-        <a href="{% url 'runapp:training_plan_edit' training_plan.pk %}">Edit plan</a>
-        <a href="{% url 'runapp:training_plan_list' %}">Return to your plans</a>
+    <div class="button-container">
+        <a class="btn btn-dark" href="{% url 'runapp:training_create' training_plan.pk %}">Add new training</a>
+        <a class="btn btn-dark" href="{% url 'runapp:training_plan_edit' training_plan.pk %}">Edit plan</a>
+        <a class="btn btn-dark" href="{% url 'runapp:training_plan_list' %}">Return to your plans</a>
     </div>
     <div>
-        <p>Trainings:</p>
-        {% for training in training_plan.training_set.all %}
-            <div>
-                {{ training }}
-                <form style="display: inline">
-                    {% csrf_token %}
-                    <a href="{% url 'runapp:training_edit' training.pk %}">Edit</a>
-                    <button formmethod="post" formaction="{% url 'runapp:training_delete' training.pk %}">Delete</button>
-                </form>
-                {% if not training.completed and training.date <= today %}
-                    <form class="inline">
-                        <button formmethod="get" formaction="{% url 'runapp:diary_entry_create' training.pk %}">Add to diary</button>
+        <h5>Trainings:</h5>
+        <div id="training-container">
+            {% for training in training_plan.training_set.all|dictsort:"date" %}
+                <div class="training">
+                    <span>{{ training }}</span>
+                    <span>{{ training.date|date:'d M Y' }}</span>
+                    {% if not training.completed %}
+                    <form>
+                        {% csrf_token %}
+                        <a class="btn btn-light" href="{% url 'runapp:training_edit' training.pk %}">Edit</a>
+                        <button class="btn btn-light" formmethod="post" formaction="{% url 'runapp:training_delete' training.pk %}">Delete</button>
                     </form>
-                {% endif %}
-            </div>
-        {% empty %}
-            <p>No trainings planed</p>
-        {% endfor %}
+                        {% if training.date <= today %}
+                            <form class="inline">
+                                <button class="btn btn-light" formmethod="get" formaction="{% url 'runapp:diary_entry_create' training.pk %}">Add to diary</button>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        <span class="completed">Completed</span>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p>No trainings planed</p>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
