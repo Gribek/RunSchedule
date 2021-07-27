@@ -58,22 +58,6 @@ body {
   border: solid 2px #7194dc; }
 
 .calendar .training_info {
-  font-size: 16px; }
-
-.calendar .training_day {
-  background-color: lightgray;
-  border: solid 2px #212529; }
-
-.calendar .plan_start {
-  border-left: solid 5px green; }
-
-.calendar .plan_end {
-  border-right: solid 5px red; }
-
-.calendar .today {
-  border: solid 2px #7194dc; }
-
-.calendar .training_info {
   font-style: italic; }
   @media (min-width: 800px) {
     .calendar .training_info {
