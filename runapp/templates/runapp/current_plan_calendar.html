@@ -19,8 +19,8 @@
                 <a class="btn btn-dark" href="{% url 'runapp:calendar' training_plan.end_date.month training_plan.end_date.year %}">Last</a>
             </div>
         {% else %}
-            <div>
-                <a href="{% url 'runapp:select_current_training_plan' %}">No training plan selected, choose one</a>
+            <div class="buttons-center empty-container">
+                <a class="btn btn-dark" href="{% url 'runapp:select_current_training_plan' %}">No training plan selected, choose one</a>
             </div>
         {% endif %}
     </div>

@@ -17,9 +17,9 @@
                 </a>
             </div>
         {% empty %}
-            <p>
-                <a href="{% url 'runapp:training_plan_create' %}">You have no training plans, create a new one</a>
-            </p>
+            <div class="buttons-center empty-container">
+                <a class="btn btn-dark" href="{% url 'runapp:training_plan_create' %}">You have no training plans, create a new one</a>
+            </div>
         {% endfor %}
     </div>
 {% endblock %}
