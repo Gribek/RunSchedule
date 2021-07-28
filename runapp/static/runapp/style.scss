@@ -1,8 +1,23 @@
 $calendar_color_1: #212529;
 $calendar_color_2: #DDE3FD;
 
+$color_1: lightgray;
+$color_2: rgba(0, 0, 0, 0.6);
+$color_3: black;
+
+%box {
+    background-color: $color_1;
+    border: $color_3 solid 2px;
+    box-shadow: $color_2 5px 5px 8px 2px;
+    border-radius:10px;
+}
+
 body {
     margin-left: 5px;
+}
+
+.errorlist li {
+    color: red;
 }
 
 .empty-container {
@@ -183,4 +198,20 @@ $landing_btn_color_2: #302f30;
     font-weight: bold;
     font-size: 3rem;
     margin: 50px;
+}
+
+#login-box {
+    @extend %box;
+    margin: 100px auto auto;
+    padding: 20px;
+    @media (min-width: 600px) {
+        width: 550px;
+    }
+    @media (max-width: 599px) {
+        width: 90%;
+    }
+}
+
+#login-form div {
+  margin: 20px auto auto;
 }
