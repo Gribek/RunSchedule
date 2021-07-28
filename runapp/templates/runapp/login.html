@@ -1,8 +1,8 @@
 {% extends "runapp/base.html" %}
 
 {% block content %}
-    <div id="login-box">
-        <form id="login-form" class="row g-3" method="post" action="{% url 'runapp:login' %}">
+    <div id="user-box">
+        <form id="user-form" class="row g-3" method="post" action="{% url 'runapp:login' %}">
             {% csrf_token %}
             {{ form.non_field_errors }}
             <div class="col-10">
