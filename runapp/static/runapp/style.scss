@@ -199,7 +199,7 @@ $landing_btn_color_2: #302f30;
     margin: 50px;
 }
 
-#login-box {
+#user-box {
     @extend %box;
     margin: 100px auto auto;
     padding: 20px;
@@ -211,6 +211,6 @@ $landing_btn_color_2: #302f30;
     }
 }
 
-#login-form div {
+#user-form div {
   margin: 20px auto auto;
 }

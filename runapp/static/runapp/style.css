@@ -1,4 +1,4 @@
-#training-container .training, #login-box {
+#training-container .training, #user-box {
   background-color: lightgray;
   border: black solid 2px;
   box-shadow: rgba(0, 0, 0, 0.6) 5px 5px 8px 2px;
@@ -153,17 +153,17 @@ body {
   font-size: 3rem;
   margin: 50px; }
 
-#login-box {
+#user-box {
   margin: 100px auto auto;
   padding: 20px; }
   @media (min-width: 600px) {
-    #login-box {
+    #user-box {
       width: 550px; } }
   @media (max-width: 599px) {
-    #login-box {
+    #user-box {
       width: 90%; } }
 
-#login-form div {
+#user-form div {
   margin: 20px auto auto; }
 
 /*# sourceMappingURL=style.css.map */
