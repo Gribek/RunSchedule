@@ -1,12 +1,9 @@
 {% extends 'runapp/base.html' %}
 
 {% block content %}
-    <div>
-        <p>
-            <a href="{% url 'runapp:login' %}">Sign in</a>
-        </p>
-        <p>
-            <a href="{% url 'runapp:register_user' %}">Register</a>
-        </p>
+    <div class="landing-welcome">Welcome to RunSchedule!</div>
+    <div class="buttons-center">
+        <a class="landing-button" href="{% url 'runapp:login' %}">Sign in</a>
+        <a class="landing-button" href="{% url 'runapp:register_user' %}">Register</a>
     </div>
 {% endblock %}
