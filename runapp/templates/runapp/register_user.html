@@ -1,12 +1,29 @@
 {% extends 'runapp/base.html' %}
 
 {% block content %}
-    <div>
-        <form method="post">
+    <div id="user-box">
+        <form id="user-form" class="row g-3 " method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Sing up">
-            <a href="{% url 'runapp:landing_page' %}">Cancel</a>
+            {{ form.non_field_errors }}
+            <div class="col-10">
+                {{ form.email.errors }}
+                <label class="form-label" for="id_email">Email address:</label>
+                <input class="form-control" type="email" name="email" maxlength="255" autofocus required id="id_email">
+            </div>
+            <div class="col-10">
+                {{ form.password1.errors }}
+                <label class="form-label" for="id_password1">Password:</label>
+                <input class="form-control" type="password" name="password1" autocomplete="new-password" required id="id_password1">
+            </div>
+            <div class="col-10">
+                {{ form.password2.errors }}
+                <label class="form-label" for="id_password2">Password confirmation:</label>
+                <input class="form-control" type="password" name="password2" autocomplete="new-password" required id="id_password2">
+            </div>
+            <div class="col-10">
+                <input class="btn btn-dark" type="submit" value="Sing up">
+                <a class="btn btn-dark" href="{% url 'runapp:landing_page' %}">Cancel</a>
+            </div>
         </form>
     </div>
 {% endblock %}
