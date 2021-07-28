@@ -7,6 +7,9 @@
 body {
   margin-left: 5px; }
 
+.errorlist {
+  list-style-type: none; }
+
 .errorlist li {
   color: red; }
 
