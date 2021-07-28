@@ -1,4 +1,4 @@
-#login-box {
+#training-container .training, #login-box {
   background-color: lightgray;
   border: black solid 2px;
   box-shadow: rgba(0, 0, 0, 0.6) 5px 5px 8px 2px;
@@ -107,10 +107,6 @@ body {
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  background-color: lightgray;
-  box-shadow: rgba(0, 0, 0, 0.6) 7px 7px 10px 5px;
-  border: solid 2px black;
-  border-radius: 10px;
   margin: 20px;
   padding: 10px;
   height: 160px; }
