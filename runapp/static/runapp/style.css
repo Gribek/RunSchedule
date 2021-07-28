@@ -125,7 +125,7 @@ body {
   font-style: normal; }
 
 .landing-button {
-  box-shadow: inset -1px -1px 2px 0px black;
+  box-shadow: black 2px 2px 4px 1px;
   background: linear-gradient(to bottom, #302f30 1%, #cccccc 100%);
   border-radius: 10px;
   border: 2px solid black;
@@ -135,7 +135,8 @@ body {
   font-weight: bold;
   padding: 20px 50px;
   text-decoration: none;
-  text-shadow: 1px 1px 0 black; }
+  text-shadow: 1px 1px 0 black;
+  margin: 5px; }
 
 .landing-button:hover {
   background: linear-gradient(to bottom, #cccccc 1%, #302f30 100%);
